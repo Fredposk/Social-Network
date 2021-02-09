@@ -2,6 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
+// validator
+const { check, validationResult } = require("express-validator");
 const app = express();
 const db = require("./db");
 const cookieSession = require("cookie-session");
@@ -49,21 +51,43 @@ app.get("/welcome", (req, res) => {
     }
 });
 
-app.post("/registration", async (req, res) => {
-    const { first, last, email } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash(req.body.password, salt);
+app.post(
+    "/registration",
+    [
+        check("first", "You must enter a first name").notEmpty(),
+        check("last", "You must enter a last name").notEmpty(),
+        check("email", "Make sure this is a valid email")
+            .notEmpty()
+            .normalizeEmail(),
+        check("password", "Check password is more than 6 characters").isLength(
+            "6"
+        ),
+    ],
+    async (req, res) => {
+        const { first, last, email, password } = req.body;
 
-    try {
-        const userID = await db.newUser(first, last, email, password);
-        req.session.userID = userID.rows[0].user_id;
-        res.redirect("/");
-    } catch (error) {
-        console.log("error at the server-side reg", error);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(201).json({ errors: errors });
+        } else {
+            const salt = await bcrypt.genSalt(10);
+            const bryptedPassword = await bcrypt.hash(password, salt);
+            try {
+                const userID = await db.newUser(
+                    first,
+                    last,
+                    email,
+                    bryptedPassword
+                );
+                req.session.userID = userID.rows[0].user_id;
+                res.redirect("/");
+            } catch (error) {
+                console.log("error at the server-side reg", error);
+            }
+            res.status(200);
+        }
     }
-
-    res.status(200);
-});
+);
 
 app.get("*", function (req, res) {
     if (!req.session.userID) {

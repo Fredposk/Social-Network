@@ -4,7 +4,7 @@ import Reg from "./Reg";
 function Welcome() {
     return (
         <div>
-            <h1>Hello WORLD</h1>
+            <h1>Hello fred</h1>
             <Reg />
         </div>
     );

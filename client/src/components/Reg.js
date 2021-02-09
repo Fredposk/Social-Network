@@ -14,17 +14,18 @@ const Reg = () => {
             email: email,
             password: password,
         };
-        console.log(userRegData);
+        // console.log(userRegData);
 
         try {
             const response = await axios.post("/registration", userRegData);
-            if (response.statusCode != 200) {
-                console.log("error");
+            if (response.statusCode !== 200) {
+                console.log(response, "checked errors");
+                // From here I can access all errors from express-validator
             } else {
                 console.log(response);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error, "caught error in client side");
         }
     };
 
