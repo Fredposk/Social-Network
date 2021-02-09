@@ -9,3 +9,9 @@ module.exports.newUser = (firstName, lastName, email, password) => {
     const params = [firstName, lastName, email, password];
     return db.query(q, params);
 };
+
+module.exports.logAttempt = (email) => {
+    const q = `SELECT * FROM users WHERE email = $1`;
+    const params = [email];
+    return db.query(q, params);
+};

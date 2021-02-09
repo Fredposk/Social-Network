@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
+const { compare } = bcrypt;
 // validator
 const { check, validationResult } = require("express-validator");
 const csurf = require("csurf");
@@ -43,11 +44,11 @@ app.use(
     })
 );
 // Csurf Protection Options
-app.use(csurf());
-app.use(function (req, res, next) {
-    res.cookie("mytoken", req.csrfToken());
-    next();
-});
+// app.use(csurf());
+// app.use(function (req, res, next) {
+//     res.cookie("mytoken", req.csrfToken());
+//     next();
+// });
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
@@ -97,9 +98,34 @@ app.post(
     }
 );
 
-app.post("/login", async (req, res) => {
-    console.log(req.body);
-});
+app.post(
+    "/login",
+    [check("email", "type your email").notEmpty()],
+
+    async (req, res) => {
+        const { email, password } = req.body;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(201).json({ errors: errors });
+        } else {
+            try {
+                // Lets check against the database
+                const AttemptLog = await db.logAttempt(email);
+                const match = await compare(
+                    password,
+                    AttemptLog.rows[0].password
+                );
+                if (match) {
+                    console.log("sucessfully logged in");
+                    req.session.userID = AttemptLog.rows[0].user_id;
+                    res.redirect("/");
+                }
+            } catch (error) {
+                console.log("here is a error at the login, server");
+            }
+        }
+    }
+);
 
 app.post("/password/reset/start", async (req, res) => {
     console.log(" I am here /password/reset/start");

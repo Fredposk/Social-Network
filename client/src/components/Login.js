@@ -1,8 +1,6 @@
 import { useState } from "react";
 import axios from "./axios";
-import { HashRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Password from "./Password";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -47,13 +45,11 @@ const Login = () => {
             ></input>
             <br />
             <button onClick={onClick}>Submit</button>
-            <HashRouter>
-                <div>
-                    <Link to="/Password">CLICK HERE TO RECOVER PASSWORD</Link>{" "}
-                    <br />
-                    <Route path="/Password" component={Password} />
-                </div>
-            </HashRouter>
+
+            <div>
+                <Link to="/Password">CLICK HERE TO RECOVER PASSWORD</Link>{" "}
+                <br />
+            </div>
         </div>
     );
 };
