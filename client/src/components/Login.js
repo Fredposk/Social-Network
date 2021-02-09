@@ -1,55 +1,33 @@
 import { useState } from "react";
 import axios from "./axios";
+import { HashRouter, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Password from "./Password";
 
-const Reg = () => {
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const onClick = async () => {
-        const userRegData = {
-            first: first,
-            last: last,
+        const loginData = {
             email: email,
             password: password,
         };
-        // console.log(userRegData);
 
         try {
-            const response = await axios.post("/registration", userRegData);
+            const response = await axios.post("/login", loginData);
             if (response.status === 201) {
-                console.log(response, "checked errors");
-                // From here I can access all errors from express-validator
+                console.log(response, "This is the login errors");
             } else if (response.status === 200) {
                 location.replace("/");
             }
         } catch (error) {
-            console.log(error, "caught error in client side");
+            console.log(error, "error durign login");
         }
     };
 
     return (
         <div>
-            <input
-                onChange={(e) => {
-                    setFirst(e.target.value);
-                }}
-                name="first"
-                value={first}
-                type="text"
-                placeholder="first"
-            ></input>
-            <br />
-            <input
-                onChange={(e) => {
-                    setLast(e.target.value);
-                }}
-                name="last"
-                type="text"
-                placeholder="last"
-            ></input>
-            <br />
             <input
                 onChange={(e) => {
                     setEmail(e.target.value);
@@ -69,8 +47,15 @@ const Reg = () => {
             ></input>
             <br />
             <button onClick={onClick}>Submit</button>
+            <HashRouter>
+                <div>
+                    <Link to="/Password">CLICK HERE TO RECOVER PASSWORD</Link>{" "}
+                    <br />
+                    <Route path="/Password" component={Password} />
+                </div>
+            </HashRouter>
         </div>
     );
 };
 
-export default Reg;
+export default Login;

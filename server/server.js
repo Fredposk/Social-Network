@@ -4,12 +4,15 @@ const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 // validator
 const { check, validationResult } = require("express-validator");
+const csurf = require("csurf");
 const app = express();
 const db = require("./db");
 const cookieSession = require("cookie-session");
 const compression = require("compression");
 const path = require("path");
-
+// Crypto random string
+const cryptoRandomString = require("crypto-random-string");
+//
 app.use(compression());
 // Logging middleware
 app.use(morgan("dev"));
@@ -39,6 +42,12 @@ app.use(
         maxAge: 24 * 60 * 60 * 1000,
     })
 );
+// Csurf Protection Options
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
@@ -84,10 +93,38 @@ app.post(
             } catch (error) {
                 console.log("error at the server-side reg", error);
             }
-            res.status(200);
         }
     }
 );
+
+app.post("/login", async (req, res) => {
+    console.log(req.body);
+});
+
+app.post("/password/reset/start", async (req, res) => {
+    console.log(" I am here /password/reset/start");
+    // things to do Here
+    // check that email is valid
+    // send the email
+    // generate secret code
+    // Select query to view users in the table
+    const secretCode = cryptoRandomString({
+        length: 6,
+    });
+    // Create a new table for secret code stuff
+    // Generate code in new table
+    // use send mail to send an email to this users
+});
+
+app.post("/password/reset/verify", async (req, res) => {
+    console.log(" I am here /password/reset/verify");
+    // retrieve the code from new table
+    // check if code is correct
+});
+
+app.post("/passwordrecoveremail", async (req, res) => {
+    console.log("received email");
+});
 
 app.get("*", function (req, res) {
     if (!req.session.userID) {
@@ -97,7 +134,7 @@ app.get("*", function (req, res) {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, function () {
     console.log(`I'm listening on ${PORT}`);
 });
