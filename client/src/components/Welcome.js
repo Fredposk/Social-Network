@@ -2,7 +2,7 @@ import { HashRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Reg from "./Reg";
 import Login from "./Login";
-import Password from "./Password";
+import ResetPassword from "./ResetPassword";
 
 function Welcome() {
     return (
@@ -15,7 +15,7 @@ function Welcome() {
                     <Link to="/">Click here to Register!</Link>
                     <Route exact path="/" component={Reg} />
                     <Route path="/login" component={Login} />
-                    <Route path="/Password" component={Password} />
+                    <Route path="/ResetPassword" component={ResetPassword} />
                 </div>
             </HashRouter>
         </div>

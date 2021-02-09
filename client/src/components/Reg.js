@@ -29,6 +29,12 @@ const Reg = () => {
         }
     };
 
+    const getGit = async () => {
+        window.location.replace(
+            "https://github.com/login/oauth/authorize?client_id=72f26d442e09c7e4185a"
+        );
+    };
+
     return (
         <div>
             <input
@@ -69,6 +75,7 @@ const Reg = () => {
             ></input>
             <br />
             <button onClick={onClick}>Submit</button>
+            <button onClick={getGit}>Log IN with Github account</button>
         </div>
     );
 };

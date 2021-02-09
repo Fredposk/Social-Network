@@ -2,7 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
+const axios = require("axios");
 const { compare } = bcrypt;
+const fetch = require("node-fetch");
 // validator
 const { check, validationResult } = require("express-validator");
 const csurf = require("csurf");
@@ -44,11 +46,11 @@ app.use(
     })
 );
 // Csurf Protection Options
-// app.use(csurf());
-// app.use(function (req, res, next) {
-//     res.cookie("mytoken", req.csrfToken());
-//     next();
-// });
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
@@ -98,6 +100,50 @@ app.post(
     }
 );
 
+// log in with gituser ID
+app.get("/home", async (req, res) => {
+    const { clientID, clientSecret } = require("./secrets.json");
+    const requestToken = req.query.code;
+    axios({
+        method: "post",
+        url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}`,
+        headers: {
+            accept: "application/json",
+        },
+    }).then((response) => {
+        const accessToken = response.data.access_token;
+        fetch("https://api.github.com/user", {
+            headers: {
+                Authorization: "token " + accessToken,
+            },
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                const gitUser = async () => {
+                    const { login, id, name, avatar_url } = data;
+                    const userID = await db.checkGitUser(id);
+                    //
+                    if (userID.rows.length === 0) {
+                        const userID = await db.createGitUser(
+                            login,
+                            id,
+                            name,
+                            avatar_url
+                        );
+                        console.log(userID.rows[0].id);
+                        req.session.userID = userID.rows[0].id;
+                        res.redirect("/");
+                    } else {
+                        console.log(userID.rows[0].id);
+                        req.session.userID = userID.rows[0].id;
+                        res.redirect("/");
+                    }
+                };
+                gitUser();
+            });
+    });
+});
+
 app.post(
     "/login",
     [check("email", "type your email").notEmpty()],
@@ -128,7 +174,7 @@ app.post(
 );
 
 app.post("/password/reset/start", async (req, res) => {
-    console.log(" I am here /password/reset/start");
+    console.log(" I am here /password/reset/start", req.body);
     // things to do Here
     // check that email is valid
     // send the email
