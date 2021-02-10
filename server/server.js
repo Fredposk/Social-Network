@@ -173,30 +173,30 @@ app.post(
     }
 );
 
-app.post("/password/reset/start", async (req, res) => {
-    console.log(" I am here /password/reset/start", req.body);
-    // things to do Here
-    // check that email is valid
-    // send the email
-    // generate secret code
-    // Select query to view users in the table
-    const secretCode = cryptoRandomString({
-        length: 6,
-    });
-    // Create a new table for secret code stuff
-    // Generate code in new table
-    // use send mail to send an email to this users
-});
+// app.post("/password/reset/start", async (req, res) => {
+//     console.log(" I am here /password/reset/start", req.body);
+//     // things to do Here
+//     // check that email is valid
+//     // send the email
+//     // generate secret code
+//     // Select query to view users in the table
+//     const secretCode = cryptoRandomString({
+//         length: 6,
+//     });
+//     // Create a new table for secret code stuff
+//     // Generate code in new table
+//     // use send mail to send an email to this users
+// });
 
-app.post("/password/reset/verify", async (req, res) => {
-    console.log(" I am here /password/reset/verify");
-    // retrieve the code from new table
-    // check if code is correct
-});
+// app.post("/password/reset/verify", async (req, res) => {
+//     console.log(" I am here /password/reset/verify");
+//     // retrieve the code from new table
+//     // check if code is correct
+// });
 
-app.post("/passwordrecoveremail", async (req, res) => {
-    console.log("received email");
-});
+// app.post("/passwordrecoveremail", async (req, res) => {
+//     console.log("received email");
+// });
 
 app.get("*", function (req, res) {
     if (!req.session.userID) {
