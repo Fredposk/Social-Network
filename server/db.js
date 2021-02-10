@@ -14,6 +14,11 @@ module.exports.createGitUser = (login, id, name, avatar_url) => {
     const params = [login, id, name, avatar_url];
     return db.query(q, params);
 };
+module.exports.updateGitPicture = (url, id) => {
+    const q = `UPDATE gituser set avatar_url = $1 WHERE id = $2;`;
+    const params = [url, id];
+    return db.query(q, params);
+};
 
 module.exports.logAttempt = (email) => {
     const q = `SELECT * FROM users WHERE email = $1`;

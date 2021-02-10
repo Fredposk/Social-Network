@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 const axios = require("axios");
+const { uploader } = require("./upload");
+const s3 = require("./s3");
 const { compare } = bcrypt;
 const fetch = require("node-fetch");
 // validator
@@ -46,11 +48,11 @@ app.use(
     })
 );
 // Csurf Protection Options
-app.use(csurf());
-app.use(function (req, res, next) {
-    res.cookie("mytoken", req.csrfToken());
-    next();
-});
+// app.use(csurf());
+// app.use(function (req, res, next) {
+//     res.cookie("mytoken", req.csrfToken());
+//     next();
+// });
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
@@ -130,11 +132,11 @@ app.get("/home", async (req, res) => {
                             name,
                             avatar_url
                         );
-                        console.log(userID.rows[0].id);
+                        // console.log(userID.rows[0].id);
                         req.session.userID = userID.rows[0].id;
                         res.redirect("/");
                     } else {
-                        console.log(userID.rows[0].id);
+                        // console.log(userID.rows[0].id);
                         req.session.userID = userID.rows[0].id;
                         res.redirect("/");
                     }
@@ -173,30 +175,29 @@ app.post(
     }
 );
 
-// app.post("/password/reset/start", async (req, res) => {
-//     console.log(" I am here /password/reset/start", req.body);
-//     // things to do Here
-//     // check that email is valid
-//     // send the email
-//     // generate secret code
-//     // Select query to view users in the table
-//     const secretCode = cryptoRandomString({
-//         length: 6,
-//     });
-//     // Create a new table for secret code stuff
-//     // Generate code in new table
-//     // use send mail to send an email to this users
-// });
+// Password recovery in gitignore, may or may not allow users without git 🤔
 
-// app.post("/password/reset/verify", async (req, res) => {
-//     console.log(" I am here /password/reset/verify");
-//     // retrieve the code from new table
-//     // check if code is correct
-// });
+app.get("/userdata", async (req, res) => {
+    const userCookie = req.session.userID;
+    const details = await db.checkGitUser(userCookie);
+    res.status(200).json({ details });
+});
 
-// app.post("/passwordrecoveremail", async (req, res) => {
-//     console.log("received email");
-// });
+app.post(
+    "/userdata/profile/picture",
+    uploader.single("file"),
+    s3.upload,
+    async (req, res) => {
+        const { s3Url } = require("./secrets.json");
+        const { filename } = req.file;
+        const url = `${s3Url}${filename}`;
+        try {
+            await db.updateGitPicture(url, req.session.userID);
+        } catch (error) {
+            console.log("error uploading or updating picture, server");
+        }
+    }
+);
 
 app.get("*", function (req, res) {
     if (!req.session.userID) {

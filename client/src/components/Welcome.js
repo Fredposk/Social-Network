@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import Reg from "./Reg";
 import Login from "./Login";
 import ResetPassword from "./ResetPassword";
+import Logo from "../Logo";
 
 function Welcome() {
     return (
         <div id="welcome">
+            <Logo />
             <h1>Welcome!</h1>
-
             <HashRouter>
                 <div>
                     <Link to="/login">Click here to Log in!</Link> <br />
