@@ -192,12 +192,23 @@ app.post(
         const { filename } = req.file;
         const url = `${s3Url}${filename}`;
         try {
-            await db.updateGitPicture(url, req.session.userID);
+            const newPic = await db.updateGitPicture(url, req.session.userID);
+            res.status(200).json({ newPic });
         } catch (error) {
             console.log("error uploading or updating picture, server");
         }
     }
 );
+
+app.post("/userdata/profile/bio", async (req, res) => {
+    const { newBio } = req.body;
+    try {
+        const bio = await db.updateBio(newBio, req.session.userID);
+        res.status(200).json({ bio });
+    } catch (error) {
+        console.log("error updating bio, server");
+    }
+});
 
 app.get("*", function (req, res) {
     if (!req.session.userID) {

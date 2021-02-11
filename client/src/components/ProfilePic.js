@@ -1,18 +1,9 @@
 import { useState } from "react";
-import Uploader from "./Uploader";
 
-const ProfilePic = ({ img }) => {
-    const [uploader, setUploader] = useState(false);
-
+const ProfilePic = ({ img, size }) => {
     return (
         <div>
-            {uploader && <Uploader />}
-            <img
-                width="100px"
-                src={`${img}`}
-                alt="user Profile Picture"
-                onClick={() => setUploader(!uploader)}
-            />
+            <img width={`${size}`} src={`${img}`} alt="user Profile Picture" />
         </div>
     );
 };

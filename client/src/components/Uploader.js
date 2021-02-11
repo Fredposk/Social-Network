@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Uploader = () => {
+const Uploader = ({ picUpdate }) => {
     const [filename, setFileName] = useState(null);
 
     const sendUpload = async () => {
         const fd = new FormData();
         fd.append("file", filename);
-        // fd.append("_csrf", csrfToken);
         try {
-            axios.post("/userdata/profile/picture", fd);
+            const newPic = await axios.post("/userdata/profile/picture", fd);
+            picUpdate(newPic);
+            //  ///
         } catch (error) {
             console.log("error in uploading image");
         }
@@ -22,6 +23,13 @@ const Uploader = () => {
                 type="file"
             />
             <button onClick={sendUpload}>Upload</button>
+            {/* <button
+                onClick={() => {
+                    picUpdate("banana");
+                }}
+            >
+                change
+            </button> */}
         </div>
     );
 };
