@@ -11,7 +11,7 @@ const Profile = ({ profileInfo, img, picUpdate, bio, updateBio }) => {
             I am the profile component for {profileInfo} <br />
             {bio}
             <ProfilePic img={img} size={`50px`} />
-            <p onClick={() => setUploader(!uploader)}>
+            <p className="bg-red-400 " onClick={() => setUploader(!uploader)}>
                 tiny camera thing to click
             </p>
             {uploader && <Uploader picUpdate={picUpdate} />}
