@@ -37,7 +37,7 @@ const Reg = () => {
 
     return (
         <div>
-            <input
+            {/* <input
                 onChange={(e) => {
                     setFirst(e.target.value);
                 }}
@@ -74,8 +74,21 @@ const Reg = () => {
                 placeholder="password"
             ></input>
             <br />
-            <button onClick={onClick}>Submit</button>
-            <button onClick={getGit}>Log IN with Github account</button>
+            <button onClick={onClick}>Submit</button> */}
+
+            <div className="px-4 mx-auto text-center">
+                <div>
+                    NetCode is a developer friendly social network, by
+                    developers, for developers
+                </div>
+                <div>
+                    Available only to developers with a github account,
+                    <a className="font-bold">sign up </a>
+                    today
+                </div>
+            </div>
+
+            {/* <button onClick={getGit}>Log IN with Github account</button> */}
         </div>
     );
 };

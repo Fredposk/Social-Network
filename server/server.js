@@ -210,6 +210,12 @@ app.post("/userdata/profile/bio", async (req, res) => {
     }
 });
 
+app.get("api/user/:id", async (req, res) => {
+    console.log(req.session);
+
+    // res.status(200).json({ hello: "Hello" });
+});
+
 app.get("*", function (req, res) {
     if (!req.session.userID) {
         res.redirect("/welcome");

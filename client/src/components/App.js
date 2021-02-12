@@ -3,6 +3,9 @@ import ProfilePic from "./ProfilePic";
 import Logo from "../Logo";
 import axios from "./axios";
 import Profile from "./Profile";
+import OtherProfile from "./OtherProfile";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const App = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -26,20 +29,37 @@ const App = () => {
     };
 
     return (
-        <div>
-            <Logo />
-            <h1>Welcome {name}</h1>
-            <ProfilePic img={profileImg} size={`20rem`} />
-            <br />
-            <h1>This is the profile data </h1>
-            <Profile
-                profileInfo={name}
-                img={profileImg}
-                picUpdate={newPic}
-                bio={bio}
-                updateBio={updateBio}
-            />
-        </div>
+        <Router>
+            <div>
+                <Logo />
+                <h1>Welcome {name}</h1>
+                <ProfilePic img={profileImg} size={`20rem`} />
+                <br />
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <Profile
+                            profileInfo={name}
+                            img={profileImg}
+                            picUpdate={newPic}
+                            bio={bio}
+                            updateBio={updateBio}
+                        />
+                    )}
+                />
+                <Route
+                    path="/user/:id"
+                    render={(props) => (
+                        <OtherProfile
+                            key={props.match.url}
+                            match={props.match}
+                            history={props.history}
+                        />
+                    )}
+                />
+            </div>
+        </Router>
     );
 };
 
