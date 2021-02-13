@@ -9,13 +9,13 @@ import React, { useState } from "react";
 
 function Welcome() {
     const [dropDown, setDropDown] = useState(false);
-    const [dropDown1, setDropDown1] = useState(true);
+    const [dropDown1, setDropDown1] = useState(false);
 
     return (
-        <div className="flex flex-col justify-start h-screen bg-gray-200">
+        <div className="flex flex-col justify-start h-screen bg-gray-100">
             <Topwelcome />
             <Logo />
-            <div className="flex justify-center max-w-6xl mt-4">
+            <div className="flex flex-col items-center justify-center mt-4">
                 <div className="font-black leading-snug text-center text-7xl">
                     <div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-800">
                         Network.
@@ -29,11 +29,11 @@ function Welcome() {
                 </div>
             </div>
             <HashRouter>
-                <div className="flex flex-col items-center mt-10 space-y-5">
+                <div className="flex flex-col items-center mt-16 space-y-8 ">
                     <Link
                         onClick={() => setDropDown(!dropDown)}
                         to="/login"
-                        className="px-5 py-3 text-sm leading-3 tracking-wider text-white uppercase bg-black border border-transparent rounded shadow-lg cursor-pointer hover:bg-white hover:text-black hover:border-black"
+                        className="px-5 py-3 text-sm leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-black border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
                     >
                         Start deploying
                     </Link>
@@ -42,7 +42,7 @@ function Welcome() {
                     {/* This will have an about page probably */}
                     <Link
                         onClick={() => setDropDown1(!dropDown1)}
-                        className="px-5 py-3 text-sm leading-3 tracking-wider text-black uppercase bg-transparent border border-gray-400 rounded shadow-lg cursor-pointer hover:border-black"
+                        className="px-5 py-3 text-sm leading-3 tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-black hover:border-black"
                         to="/"
                     >
                         Find out more

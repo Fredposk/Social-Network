@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
+import Logoinside from "./Logoinside";
 
 const App = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -30,11 +31,36 @@ const App = () => {
 
     return (
         <Router>
-            <div>
-                <Logo />
-                <h1>Welcome {name}</h1>
-                <ProfilePic img={profileImg} size={`20rem`} />
-                <br />
+            <div className="">
+                <Logoinside name={name} picture={profileImg} />
+                {/* <ProfilePic img={profileImg} size={`20rem`} /> */}
+                <div className="mt-4 mb-2 text-gray-500 border-b border-gray-300 text-md ">
+                    <div className="flex ml-3 space-x-5">
+                        <div className="border-b border-black">Overview</div>
+                        <div className="border-b border-transparent">Chat</div>
+                        <div className="border-b border-transparent">
+                            Online
+                        </div>
+                        <div className="border-b border-transparent">
+                            Friends
+                        </div>
+                        <div className="border-b border-transparent">Find</div>
+                        <div className="border-b border-transparent">
+                            People
+                        </div>
+                        <div className="border-b border-transparent">
+                            Logout
+                        </div>
+                        <div className="border-b border-transparent">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                            >
+                                <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
                 <Route
                     exact
                     path="/"
@@ -48,6 +74,7 @@ const App = () => {
                         />
                     )}
                 />
+
                 <Route
                     path="/user/:id"
                     render={(props) => (

@@ -15,9 +15,10 @@ const BioEditor = ({ bio, updateBio }) => {
 
     return (
         <div>
-            <h1>Hello I am the bio editor</h1>
-
-            <button onClick={() => setBioedit(!bioedit)}>
+            <button
+                className="px-5 py-3 text-sm leading-3 tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-black hover:border-black"
+                onClick={() => setBioedit(!bioedit)}
+            >
                 click to edit bio
             </button>
             <button onClick={() => handleSave(textValue)}>SAVE</button>

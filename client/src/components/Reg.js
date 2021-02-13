@@ -76,14 +76,17 @@ const Reg = () => {
             <br />
             <button onClick={onClick}>Submit</button> */}
 
-            <div className="px-4 mx-auto text-center">
-                <div>
-                    NetCode is a developer friendly social network, by
-                    developers, for developers
+            <div className="px-4 mx-auto mt-2 space-y-2 text-sm text-center text-gray-800 md:text-lg">
+                <div className="">
+                    NetCode is a developer social network, by developers, for
+                    developers
                 </div>
                 <div>
-                    Available only to developers with a github account,
-                    <a className="font-bold">sign up </a>
+                    Must have a github account to enter,
+                    <a onClick={getGit} className="font-bold cursor-pointer">
+                        {" "}
+                        sign up{" "}
+                    </a>
                     today
                 </div>
             </div>

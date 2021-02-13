@@ -17,19 +17,14 @@ const Uploader = ({ picUpdate }) => {
     };
 
     return (
-        <div>
-            <input
-                onChange={(e) => setFileName(e.target.files[0])}
-                type="file"
-            />
-            <button onClick={sendUpload}>Upload</button>
-            {/* <button
-                onClick={() => {
-                    picUpdate("banana");
-                }}
-            >
-                change
-            </button> */}
+        <div className="relative">
+            <div className="absolute rounded shadow right-8 top-2">
+                <input
+                    onChange={(e) => setFileName(e.target.files[0])}
+                    type="file"
+                />
+                <button onClick={sendUpload}>Upload</button>
+            </div>
         </div>
     );
 };
