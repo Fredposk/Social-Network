@@ -48,9 +48,7 @@ const App = () => {
                         <div className="border-b border-transparent">
                             People
                         </div>
-                        <div className="border-b border-transparent">
-                            Logout
-                        </div>
+
                         <div className="border-b border-transparent">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
