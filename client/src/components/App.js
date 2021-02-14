@@ -7,6 +7,7 @@ import OtherProfile from "./OtherProfile";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Logoinside from "./Logoinside";
+import { motion } from "framer-motion";
 
 const App = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -36,7 +37,13 @@ const App = () => {
                 {/* <ProfilePic img={profileImg} size={`20rem`} /> */}
                 <div className="mt-4 mb-2 text-gray-500 border-b border-gray-300 text-md ">
                     <div className="flex ml-3 space-x-5">
-                        <div className="border-b border-black">Overview</div>
+                        <motion.div
+                            animate={{ y: [0, -3, 0] }}
+                            transition={{ yoyo: 4, duration: 0.4, delay: 0.4 }}
+                            className="border-b border-black"
+                        >
+                            Overview
+                        </motion.div>
                         <div className="border-b border-transparent">Chat</div>
                         <div className="border-b border-transparent">
                             Online

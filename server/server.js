@@ -16,7 +16,7 @@ const cookieSession = require("cookie-session");
 const compression = require("compression");
 const path = require("path");
 // Crypto random string
-const cryptoRandomString = require("crypto-random-string");
+// const cryptoRandomString = require("crypto-random-string");
 //
 app.use(compression());
 // Logging middleware
@@ -210,10 +210,25 @@ app.post("/userdata/profile/bio", async (req, res) => {
     }
 });
 
-app.get("api/user/:id", async (req, res) => {
-    console.log(req.session);
+app.get("/api/user/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    try {
+        const user = await db.getOtherUser(id);
+        console.log(user.rows[0]);
+        res.status(200).json({
+            user: user.rows[0],
+            requester: req.session.userID,
+        });
+    } catch (error) {
+        console.log("banana");
+        res.status(404).json({ error: error });
+    }
+});
 
-    // res.status(200).json({ hello: "Hello" });
+app.get("/logout", async (req, res) => {
+    req.session.userID = null;
+    res.redirect("/");
 });
 
 app.get("*", function (req, res) {

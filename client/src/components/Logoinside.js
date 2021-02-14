@@ -1,19 +1,30 @@
-import React from "react";
-import ProfilePic from "./ProfilePic";
+import axios from "./axios";
+import { motion } from "framer-motion";
 
 const Logoinside = ({ name, picture }) => {
+    const logOut = async () => {
+        try {
+            await axios.get("/logout");
+        } catch (error) {
+            console.log("error logging out");
+        }
+    };
+
     return (
         <div className="flex items-center justify-between">
             <div className="flex items-center mt-2 ml-4 ">
-                <div className="">
-                    <svg
+                <motion.div
+                    whileHover={{ originX: 0, scale: 1.06, duration: 0.3 }}
+                    className=""
+                >
+                    <motion.svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-8 h-8 m-3 transform rotate-180 cursor-pointer hover:opacity-75 md:w-10 md:h-10"
                         viewBox="0 0 24 24"
                     >
                         <path d="M24 22h-24l12-20z" />
-                    </svg>
-                </div>
+                    </motion.svg>
+                </motion.div>
 
                 <div className="flex items-center space-x-6 ">
                     <div className="text-xl italic font-light text-gray-500">
@@ -48,7 +59,12 @@ const Logoinside = ({ name, picture }) => {
                 <div className="px-2 py-1 text-gray-700 border rounded shadow cursor-pointer border-gray-50 hover:shadow-md">
                     Feedback
                 </div>
-                <div className="px-5 py-3 text-sm leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-black border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black">
+
+                <div
+                    onClick={logOut}
+                    className="px-5 py-3 text-sm leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-black border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
+                >
+                    {" "}
                     Sign out
                 </div>
             </div>

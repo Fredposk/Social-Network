@@ -6,6 +6,21 @@ import ResetPassword from "./ResetPassword";
 import Logo from "../Logo";
 import Topwelcome from "./Topwelcome";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+
+const container = {
+    hidden: { opacity: 0 },
+    visible: {
+        color: "#000000",
+        transition: {
+            repeat: Infinity,
+            repeatType: "mirror",
+            staggerChildren: 1,
+            duration: 3,
+            repeatDelay: 2,
+        },
+    },
+};
 
 function Welcome() {
     const [dropDown, setDropDown] = useState(false);
@@ -16,17 +31,30 @@ function Welcome() {
             <Topwelcome />
             <Logo />
             <div className="flex flex-col items-center justify-center mt-4">
-                <div className="font-black leading-tight tracking-tight text-center text-9xl">
-                    <div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400">
+                <motion.div
+                    variants={container}
+                    animate="visible"
+                    className="font-black leading-tight tracking-tight text-center text-9xl"
+                >
+                    <motion.div
+                        variants={container}
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400"
+                    >
                         Network.
-                    </div>
-                    <div className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-indigo-600">
+                    </motion.div>
+                    <motion.div
+                        variants={container}
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-pink-500 to-indigo-600"
+                    >
                         Meet.
-                    </div>
-                    <div className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-400">
+                    </motion.div>
+                    <motion.div
+                        variants={container}
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-400"
+                    >
                         Develop.
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
             <HashRouter>
                 <div className="flex items-center justify-center mt-4">

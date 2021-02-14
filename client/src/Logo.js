@@ -8,7 +8,7 @@ const Logo = () => {
     };
     return (
         <div className="flex items-center justify-between mt-3">
-            <div className="flex items-center ml-40">
+            <div className="flex items-center ml-40 cursor-pointer hover:opacity-80">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-8 h-8 m-3 transform rotate-180 "
