@@ -16,7 +16,7 @@ const container = {
             repeat: Infinity,
             repeatType: "mirror",
             staggerChildren: 1,
-            duration: 3,
+            duration: 2,
             repeatDelay: 2,
         },
     },
@@ -66,7 +66,9 @@ function Welcome() {
                         Register now
                     </Link>
 
-                    {dropDown && <Route path="/login" component={Login} />}
+                    {dropDown && (
+                        <Route exact path="/login" component={Login} />
+                    )}
                     {/* This will have an about page probably */}
                     <Link
                         onClick={() => setDropDown1(!dropDown1)}
