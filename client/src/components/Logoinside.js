@@ -8,6 +8,10 @@ const Logoinside = ({ name, picture }) => {
     const logOut = async () => {
         try {
             await axios.get("/logout");
+
+            setTimeout(() => {
+                window.location.replace("/welcome");
+            }, 500);
         } catch (error) {
             console.log("error logging out");
         }

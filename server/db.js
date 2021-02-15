@@ -43,3 +43,15 @@ module.exports.getOtherUser = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.getNewUsers = (id) => {
+    const q = `SELECT * FROM gituser where id != $1 ORDER BY created_at DESC LIMIT 3;`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.getSearchedUsers = (id, val) => {
+    const q = `SELECT * FROM gituser WHERE id != $1 and name ILIKE $2;`;
+    const params = [id, val + "%"];
+    return db.query(q, params);
+};

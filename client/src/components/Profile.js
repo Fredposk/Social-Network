@@ -1,12 +1,33 @@
 import BioEditor from "./BioEditor";
 import React, { useState, useEffect } from "react";
 import Uploader from "./Uploader";
+import { motion } from "framer-motion";
 
-const Profile = ({ profileInfo, img, picUpdate, bio, updateBio }) => {
+const pageEnter = {
+    hidden: { x: "100vw", opacity: 0 },
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: { type: "tween", delay: 0.2, duration: 0.4 },
+    },
+};
+
+const Profile = ({
+    profileInfo,
+    img,
+    picUpdate,
+    bio,
+    updateBio,
+    updateLocation,
+}) => {
     const [uploader, setUploader] = useState(false);
 
+    useEffect(() => {
+        updateLocation(location.pathname);
+    });
+
     return (
-        <div>
+        <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="flex justify-between">
                 <div className="flex items-center mt-4 ml-6">
                     <img
@@ -40,7 +61,7 @@ const Profile = ({ profileInfo, img, picUpdate, bio, updateBio }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

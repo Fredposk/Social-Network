@@ -7,6 +7,8 @@ const OtherProfile = (props) => {
     const [bio, setBio] = useState("");
 
     useEffect(async () => {
+        props.updateLocation("/find/users");
+
         const user = props.match.params.id;
         const result = await axios.get(`/api/user/${user}`);
         console.log(result.data);
@@ -19,7 +21,7 @@ const OtherProfile = (props) => {
         if (id === result.data.requester) {
             props.history.push("/");
         }
-    });
+    }, []);
 
     return (
         <div>
@@ -34,7 +36,7 @@ const OtherProfile = (props) => {
                     </div>
                     <div className="flex flex-col w-1/2 ml-6 space-y-2">
                         <div className="font-semibold text-gray-800">{bio}</div>
-                        <div className="font-mono text-lg text-blue-600 uppercase">
+                        <div className="text-lg text-blue-600 uppercase ">
                             {name}
                         </div>
                     </div>

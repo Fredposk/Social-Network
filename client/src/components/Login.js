@@ -4,25 +4,25 @@ import { Link } from "react-router-dom";
 // import logo from "../icons/GitHub-Mark-120px-plus.png";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
 
-    const onClick = async () => {
-        const loginData = {
-            email: email,
-            password: password,
-        };
-        try {
-            const response = await axios.post("/login", loginData);
-            if (response.status === 201) {
-                console.log(response, "This is the login errors");
-            } else if (response.status === 200) {
-                location.replace("/");
-            }
-        } catch (error) {
-            console.log(error, "error during login");
-        }
-    };
+    // const onClick = async () => {
+    //     const loginData = {
+    //         email: email,
+    //         password: password,
+    //     };
+    //     try {
+    //         const response = await axios.post("/login", loginData);
+    //         if (response.status === 201) {
+    //             console.log(response, "This is the login errors");
+    //         } else if (response.status === 200) {
+    //             location.replace("/");
+    //         }
+    //     } catch (error) {
+    //         console.log(error, "error during login");
+    //     }
+    // };
 
     const getGit = async () => {
         window.location.replace(

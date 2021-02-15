@@ -226,6 +226,28 @@ app.get("/api/user/:id", async (req, res) => {
     }
 });
 
+app.get("/findusers/recent", async (req, res) => {
+    try {
+        const recentUsers = await db.getNewUsers(req.session.userID);
+        res.status(200).json({ recentUsers: [recentUsers] });
+    } catch (error) {
+        res.status(404).json({ error: error });
+    }
+});
+
+app.get("/findusers/search/:val", async (req, res) => {
+    try {
+        const searchUsers = await db.getSearchedUsers(
+            req.session.userID,
+            req.params.val
+        );
+        res.status(200).json({ users: [searchUsers] });
+    } catch (error) {
+        console.log("error searchinf for users");
+        res.status(201).json({ error: error });
+    }
+});
+
 app.get("/logout", async (req, res) => {
     req.session.userID = null;
     res.redirect("/");

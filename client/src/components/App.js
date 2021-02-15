@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import ProfilePic from "./ProfilePic";
+import { useState, useEffect } from "react";
+
 import axios from "./axios";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Route, Link, HashRouter } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import Logoinside from "./Logoinside";
 import { motion } from "framer-motion";
 import Findusers from "./Findusers";
@@ -22,6 +22,7 @@ const App = () => {
     const [profileImg, setProfileImg] = useState("");
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
+    const [currentTab, setTab] = useState("");
 
     useEffect(async () => {
         const userData = await axios.get("/userdata");
@@ -39,6 +40,10 @@ const App = () => {
         setBio(item.data.bio.rows[0].bio);
     };
 
+    const updateLocation = (item) => {
+        setTab(item);
+    };
+
     return (
         <Router>
             <div className="">
@@ -50,7 +55,9 @@ const App = () => {
                             <motion.div
                                 variants={hoverVariants}
                                 whileHover="visible"
-                                className="border-b border-black cursor-pointer"
+                                className={`border-b border-transparent   ${
+                                    currentTab === "/" ? "border-black" : ""
+                                } cursor-pointer`}
                             >
                                 Overview
                             </motion.div>
@@ -58,7 +65,9 @@ const App = () => {
                         <motion.div
                             variants={hoverVariants}
                             whileHover="visible"
-                            className="border-b border-transparent cursor-pointer"
+                            className={`border-b border-transparent ${
+                                currentTab === "/chat" ? "border-black" : ""
+                            } cursor-pointer`}
                         >
                             Chat
                         </motion.div>
@@ -81,7 +90,11 @@ const App = () => {
                             <motion.div
                                 variants={hoverVariants}
                                 whileHover="visible"
-                                className="border-b border-transparent cursor-pointer"
+                                className={`border-b border-transparent ${
+                                    currentTab == "/find/users"
+                                        ? "border-black"
+                                        : ""
+                                } cursor-pointer`}
                             >
                                 Find People
                             </motion.div>
@@ -99,27 +112,21 @@ const App = () => {
                             picUpdate={newPic}
                             bio={bio}
                             updateBio={updateBio}
+                            updateLocation={updateLocation}
                         />
                     )}
                 />
                 <Route
                     exact
                     path="/find/users"
-                    render={() => (
-                        <Findusers
-                            profileInfo={name}
-                            img={profileImg}
-                            picUpdate={newPic}
-                            bio={bio}
-                            updateBio={updateBio}
-                        />
-                    )}
+                    render={() => <Findusers updateLocation={updateLocation} />}
                 />
 
                 <Route
                     path="/user/:id"
                     render={(props) => (
                         <OtherProfile
+                            updateLocation={updateLocation}
                             key={props.match.url}
                             match={props.match}
                             history={props.history}
