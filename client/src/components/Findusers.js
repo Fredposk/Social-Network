@@ -13,47 +13,49 @@ const pageEnter = {
 
 const Findusers = ({ updateLocation }) => {
     const [users, setUsers] = useState([]);
-    const [searched, setsearched] = useState([]);
-
-    useEffect(async () => {
-        updateLocation(location.pathname);
-        try {
-            const users = await axios.get("/findusers/recent");
-            setUsers(users.data.recentUsers[0].rows);
-        } catch (error) {
-            console.log("failed to get recent users");
-        }
-    }, []);
+    const [search, setSearch] = useState([]);
+    const [result, setResult] = useState("Check out who just joined!");
 
     let abort;
     useEffect(async () => {
+        updateLocation(location.pathname);
         if (!abort) {
-            try {
-                const users = await axios.get(`/findusers/search/${searched}`);
-                console.log(users.data.users[0].rows);
-                setsearched(searched);
-            } catch (error) {
-                console.log("failed search");
+            if (search.length === 0) {
+                const responseData = await axios.get("/findusers/recent");
+                setUsers(responseData.data.recentUsers[0].rows);
+                setResult("Check out who just joined!");
+            } else {
+                const responseData = await axios.get(
+                    `/findusers/search/${search}`
+                );
+                if (responseData.data.users[0].rows.length === 0) {
+                    setResult("Sorry, no users found");
+                    setUsers([]);
+                } else {
+                    setUsers(responseData.data.users[0].rows);
+                    setResult(`Results for: ${search}`);
+                }
             }
         }
         return () => {
             abort = true;
         };
-    }, [searched]);
+    }, [search]);
 
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="ml-12 text-2xl font-semibold tracking-wider md:text-2-xl">
-                Check out who just joined
+                {result}
             </div>
-            <div className="bg-red-300">
+            <div className="">
                 <input
-                    onChange={(e) => setsearched(e.target.value)}
+                    className="w-1/3 py-1 pl-2 my-6 ml-12 text-sm text-gray-700 bg-gray-200 rounded-lg shadow-md focus:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent"
+                    onChange={(e) => setSearch(e.target.value)}
                     type="text"
                     placeholder="Search Users.."
                 />
             </div>
-            <div>{searched}</div>
+
             {users.map((user, index) => {
                 return (
                     <div

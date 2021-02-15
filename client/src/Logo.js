@@ -21,13 +21,13 @@ const Logo = () => {
                 </div>
             </div>
             <div className="flex mr-24 space-x-2">
-                <div className="px-2 py-1 text-gray-700 transition duration-500 border rounded shadow cursor-pointer border-gray-50 hover:shadow-md hover:border-black">
+                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
                     Careers
                 </div>
-                <div className="px-2 py-1 text-gray-700 transition duration-500 border rounded shadow cursor-pointer border-gray-50 hover:shadow-md hover:border-black">
+                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
                     Blog
                 </div>
-                <div className="px-2 py-1 text-gray-700 transition duration-500 border rounded shadow cursor-pointer border-gray-50 hover:shadow-md hover:border-black">
+                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
                     Feedback
                 </div>
                 <div

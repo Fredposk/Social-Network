@@ -29,7 +29,7 @@ const OtherProfile = (props) => {
                 <div className="flex items-center ">
                     <div>
                         <img
-                            className="object-cover w-32 h-full rounded-lg shadow-md "
+                            className="object-cover w-32 h-32 rounded-lg shadow-md "
                             src={`${profileImg}`}
                             alt="profile picture of {`${img}`}"
                         />
