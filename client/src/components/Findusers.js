@@ -73,7 +73,7 @@ const Findusers = ({ updateLocation }) => {
                                     />
                                 </div>
                                 <div className="flex flex-col w-1/2 ml-6 space-y-2">
-                                    <div className="font-semibold text-gray-800">
+                                    <div className="text-sm font-semibold text-gray-500">
                                         {user.bio}
                                     </div>
                                     <div className="text-lg text-blue-600 uppercase">

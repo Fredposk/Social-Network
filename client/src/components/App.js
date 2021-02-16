@@ -8,6 +8,7 @@ import { Route, Link } from "react-router-dom";
 import Logoinside from "./Logoinside";
 import { motion } from "framer-motion";
 import Findusers from "./Findusers";
+import Friends from "./Friends";
 
 const hoverVariants = {
     hidden: {},
@@ -78,13 +79,19 @@ const App = () => {
                         >
                             Online
                         </motion.div>
-                        <motion.div
-                            variants={hoverVariants}
-                            whileHover="visible"
-                            className="border-b border-transparent cursor-pointer"
-                        >
-                            Friends
-                        </motion.div>
+                        <Link to="/friends">
+                            <motion.div
+                                variants={hoverVariants}
+                                whileHover="visible"
+                                className={`border-b border-transparent ${
+                                    currentTab == "/friends"
+                                        ? "border-black"
+                                        : ""
+                                } cursor-pointer`}
+                            >
+                                Friends
+                            </motion.div>
+                        </Link>
 
                         <Link to="/find/users">
                             <motion.div
@@ -120,6 +127,11 @@ const App = () => {
                     exact
                     path="/find/users"
                     render={() => <Findusers updateLocation={updateLocation} />}
+                />
+                <Route
+                    exact
+                    path="/friends"
+                    render={() => <Friends updateLocation={updateLocation} />}
                 />
 
                 <Route

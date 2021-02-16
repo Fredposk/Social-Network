@@ -23,6 +23,10 @@ function Welcome() {
     const [dropDown, setDropDown] = useState(false);
     const [dropDown1, setDropDown1] = useState(false);
 
+    dropDown && dropDown1
+        ? setDropDown(!dropDown) && setDropDown1(!dropDown1)
+        : "";
+
     return (
         <div className="flex flex-col justify-start h-screen bg-gray-100">
             <Topwelcome />

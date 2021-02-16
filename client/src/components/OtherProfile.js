@@ -37,7 +37,7 @@ const OtherProfile = (props) => {
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="inline-flex w-2/3 p-12 mt-6 ml-6 ">
-                <div className="flex items-center ">
+                <div className="flex items-center w-2/3">
                     <div>
                         <img
                             className="object-cover w-32 h-32 rounded-lg shadow-md "
@@ -46,8 +46,10 @@ const OtherProfile = (props) => {
                         />
                     </div>
                     <div className="inline-flex flex-col w-1/2 ml-6 space-y-2">
-                        <div className="font-semibold text-gray-800">{bio}</div>
-                        <div className="text-lg text-blue-600 uppercase ">
+                        <div className="text-sm font-semibold text-gray-600">
+                            {bio}
+                        </div>
+                        <div className="inline-block text-lg text-blue-600 uppercase ">
                             {name}
                         </div>
                         <div className="text-center max-w-max">
