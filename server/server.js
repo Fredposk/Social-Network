@@ -212,16 +212,14 @@ app.post("/userdata/profile/bio", async (req, res) => {
 
 app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     try {
         const user = await db.getOtherUser(id);
-        console.log(user.rows[0]);
         res.status(200).json({
             user: user.rows[0],
             requester: req.session.userID,
         });
     } catch (error) {
-        console.log("banana");
+        console.log("error in the fetch Other/user api ");
         res.status(404).json({ error: error });
     }
 });
@@ -244,6 +242,106 @@ app.get("/findusers/search/:val", async (req, res) => {
         res.status(200).json({ users: [searchUsers] });
     } catch (error) {
         console.log("error searchinf for users");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.get("/users/friendstatus/:id", async (req, res) => {
+    try {
+        const friendstatus = await db.friendStatus(
+            req.params.id,
+            req.session.userID
+        );
+        if (friendstatus.rows.length === 0) {
+            res.status(200).json({
+                friends: false,
+                button: "Send Friend Request",
+            });
+        } else {
+            const receipt = await db.recipient(
+                req.session.userID,
+                req.params.id
+            );
+            if (receipt.rows.length != 0) {
+                if (receipt.rows[0].accepted === true) {
+                    res.status(200).json({
+                        friends: false,
+                        button: "End Friendship",
+                    });
+                } else if (receipt.rows[0].accepted === false) {
+                    res.status(200).json({
+                        friends: false,
+                        button: "Accept Friend Request",
+                    });
+                }
+            } else {
+                try {
+                    const relationshipstatus = await db.relationshipstatus(
+                        req.params.id,
+                        req.session.userID
+                    );
+                    if (relationshipstatus.rows[0].accepted === true) {
+                        res.status(200).json({
+                            friends: true,
+                            button: "End Friendship",
+                        });
+                    } else if (relationshipstatus.rows[0].accepted === false) {
+                        res.status(200).json({
+                            friends: false,
+                            button: "Cancel Friend Request",
+                        });
+                    }
+                } catch (error) {
+                    console.log("error with the friends status part");
+                    res.status(201).json({ error: error });
+                }
+            }
+        }
+    } catch (error) {
+        console.log("error with the friends");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/users/friendrequest/send", async (req, res) => {
+    try {
+        const request = await db.makeFriendRequest(
+            req.session.userID,
+            req.body.id
+        );
+        console.log(request.rows);
+        res.status(200).json({
+            friends: false,
+            button: "Cancel Friend Request",
+        });
+    } catch (error) {
+        console.log("error with the friends request");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/users/friendrequest/end", async (req, res) => {
+    try {
+        await db.deleteFriendship(req.session.userID, req.body.id);
+        res.status(200).json({
+            friends: false,
+            button: "Send Friend Request",
+        });
+    } catch (error) {
+        console.log("error deleting try again");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/users/friendrequest/accept", async (req, res) => {
+    try {
+        await db.acceptRequest(req.session.userID, req.body.id);
+        res.status(200).json({
+            friends: true,
+            button: "End Friendship",
+        });
+    } catch (error) {
+        console.log("error Aceepting");
         res.status(201).json({ error: error });
     }
 });

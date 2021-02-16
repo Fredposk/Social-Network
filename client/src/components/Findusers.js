@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -62,23 +63,25 @@ const Findusers = ({ updateLocation }) => {
                         key={index}
                         className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3"
                     >
-                        <div className="flex items-center ">
-                            <div>
-                                <img
-                                    className="object-cover w-32 h-32 rounded-lg shadow-md "
-                                    src={`${user.avatar_url}`}
-                                    alt="profile picture of {`${img}`}"
-                                />
-                            </div>
-                            <div className="flex flex-col w-1/2 ml-6 space-y-2">
-                                <div className="font-semibold text-gray-800">
-                                    {user.bio}
+                        <Link to={`/user/${user.id}`}>
+                            <div className="flex items-center ">
+                                <div>
+                                    <img
+                                        className="object-cover w-32 h-32 rounded-lg shadow-md "
+                                        src={`${user.avatar_url}`}
+                                        alt="profile picture of {`${img}`}"
+                                    />
                                 </div>
-                                <div className="text-lg text-blue-600 uppercase">
-                                    {user.name}
+                                <div className="flex flex-col w-1/2 ml-6 space-y-2">
+                                    <div className="font-semibold text-gray-800">
+                                        {user.bio}
+                                    </div>
+                                    <div className="text-lg text-blue-600 uppercase">
+                                        {user.name}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 );
             })}

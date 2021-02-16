@@ -1,11 +1,8 @@
-import { HashRouter, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Reg from "./Reg";
 import Login from "./Login";
-import ResetPassword from "./ResetPassword";
 import Logo from "../Logo";
 import Topwelcome from "./Topwelcome";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 const container = {
@@ -56,31 +53,26 @@ function Welcome() {
                     </motion.div>
                 </motion.div>
             </div>
-            <HashRouter>
-                <div className="flex items-center justify-center mt-4">
-                    <Link
-                        onClick={() => setDropDown(!dropDown)}
-                        to="/login"
-                        className="px-5 py-3 mr-2 text-sm tracking-wider text-white uppercase transition duration-500 ease-in-out bg-black border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
-                    >
-                        Register now
-                    </Link>
 
-                    {dropDown && (
-                        <Route exact path="/login" component={Login} />
-                    )}
-                    {/* This will have an about page probably */}
-                    <Link
-                        onClick={() => setDropDown1(!dropDown1)}
-                        className="px-5 py-3 ml-2 text-sm tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-black hover:border-black"
-                        to="/"
-                    >
-                        Find out more
-                    </Link>
-                    {dropDown1 && <Route exact path="/" component={Reg} />}
-                    {/* <Route path="/ResetPassword" component={ResetPassword} /> */}
+            <div className="flex items-center justify-center mt-4 ">
+                <div
+                    onClick={() => setDropDown(!dropDown)}
+                    className="px-5 py-3 mr-2 text-sm tracking-wider text-white uppercase transition duration-500 ease-in-out bg-black border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
+                >
+                    Register now
                 </div>
-            </HashRouter>
+
+                <div
+                    onClick={() => setDropDown1(!dropDown1)}
+                    className="px-5 py-3 ml-2 text-sm tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-black hover:border-black"
+                >
+                    Find out more
+                </div>
+            </div>
+            <div className="inline-flex items-center justify-center mt-3">
+                <div> {dropDown && <Login />}</div>
+                <div>{dropDown1 && <Reg />}</div>
+            </div>
         </div>
     );
 }

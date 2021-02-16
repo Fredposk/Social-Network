@@ -1,5 +1,18 @@
 import { useState } from "react";
 import axios from "./axios";
+import { motion } from "framer-motion";
+
+const pageEnter = {
+    hidden: { y: "-100vh", opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "tween",
+            duration: 0.3,
+        },
+    },
+};
 
 const Reg = () => {
     const [first, setFirst] = useState("");
@@ -36,53 +49,16 @@ const Reg = () => {
     };
 
     return (
-        <div>
-            {/* <input
-                onChange={(e) => {
-                    setFirst(e.target.value);
-                }}
-                name="first"
-                value={first}
-                type="text"
-                placeholder="first"
-            ></input>
-            <br />
-            <input
-                onChange={(e) => {
-                    setLast(e.target.value);
-                }}
-                name="last"
-                type="text"
-                placeholder="last"
-            ></input>
-            <br />
-            <input
-                onChange={(e) => {
-                    setEmail(e.target.value);
-                }}
-                name="email"
-                type="text"
-                placeholder="email"
-            ></input>
-            <br />
-            <input
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}
-                name="password"
-                type="password"
-                placeholder="password"
-            ></input>
-            <br />
-            <button onClick={onClick}>Submit</button> */}
-
+        <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="px-4 mx-auto mt-2 space-y-2 text-sm text-center text-gray-800 md:text-lg">
                 <div className="">
-                    NetCode is a developer social network, by developers, for
-                    developers
+                    NetCode is a developer friendly social network.
                 </div>
-                <div>
-                    Must have a github account to enter,
+                <div className="text-gray-600">
+                    A Spiced 2021 React Project.
+                </div>
+                <div className="text-sm text-gray-600">
+                    Must a github account to enter,
                     <a onClick={getGit} className="font-bold cursor-pointer">
                         {" "}
                         sign up{" "}
@@ -90,9 +66,7 @@ const Reg = () => {
                     today
                 </div>
             </div>
-
-            {/* <button onClick={getGit}>Log IN with Github account</button> */}
-        </div>
+        </motion.div>
     );
 };
 

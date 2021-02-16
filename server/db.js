@@ -55,3 +55,44 @@ module.exports.getSearchedUsers = (id, val) => {
     const params = [id, val + "%"];
     return db.query(q, params);
 };
+
+module.exports.friendStatus = (id, user) => {
+    const q = `SELECT * FROM friendships
+WHERE (recipient_id = $1 AND sender_id = $2)
+OR (recipient_id = $2 AND sender_id = $1);`;
+    const params = [id, user];
+    return db.query(q, params);
+};
+
+module.exports.makeFriendRequest = (id, otherUser) => {
+    const q = `insert into friendships (sender_id, recipient_id) values ($1, $2) returning accepted;`;
+    const params = [id, otherUser];
+    return db.query(q, params);
+};
+
+module.exports.relationshipstatus = (otherUser, currUser) => {
+    const q = `select accepted from friendships WHERE (sender_id = $2 and recipient_id = $1)`;
+    const params = [otherUser, currUser];
+    return db.query(q, params);
+};
+
+module.exports.deleteFriendship = (id, otherUser) => {
+    const q = `delete FROM friendships
+WHERE (recipient_id = $1 AND sender_id = $2)
+OR (recipient_id = $2 AND sender_id = $1)
+`;
+    const params = [id, otherUser];
+    return db.query(q, params);
+};
+
+module.exports.recipient = (id, otherUser) => {
+    const q = `select accepted from friendships WHERE recipient_id = $1 and sender_id = $2`;
+    const params = [id, otherUser];
+    return db.query(q, params);
+};
+
+module.exports.acceptRequest = (id, otherUser) => {
+    const q = `update friendships set accepted = true where recipient_id = $1 and sender_id = $2;`;
+    const params = [id, otherUser];
+    return db.query(q, params);
+};
