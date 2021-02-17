@@ -61,7 +61,7 @@ const Findusers = ({ updateLocation }) => {
                 return (
                     <div
                         key={index}
-                        className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3"
+                        className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3 transition duration-500 ease-in-out hover:opacity-75"
                     >
                         <Link to={`/user/${user.id}`}>
                             <div className="flex items-center ">

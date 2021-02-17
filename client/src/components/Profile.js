@@ -2,6 +2,7 @@ import BioEditor from "./BioEditor";
 import React, { useState, useEffect } from "react";
 import Uploader from "./Uploader";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -71,8 +72,6 @@ let Profile = ({
                         </div>
                     </div>
                 </div>
-
-                {/* buttons and editor */}
             </div>
         </motion.div>
     );
