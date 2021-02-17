@@ -65,42 +65,42 @@ app.get("/welcome", (req, res) => {
     }
 });
 
-app.post(
-    "/registration",
-    [
-        check("first", "You must enter a first name").notEmpty(),
-        check("last", "You must enter a last name").notEmpty(),
-        check("email", "Make sure this is a valid email")
-            .notEmpty()
-            .normalizeEmail(),
-        check("password", "Check password is more than 6 characters").isLength(
-            "6"
-        ),
-    ],
-    async (req, res) => {
-        const { first, last, email, password } = req.body;
+// app.post(
+//     "/registration",
+//     [
+//         check("first", "You must enter a first name").notEmpty(),
+//         check("last", "You must enter a last name").notEmpty(),
+//         check("email", "Make sure this is a valid email")
+//             .notEmpty()
+//             .normalizeEmail(),
+//         check("password", "Check password is more than 6 characters").isLength(
+//             "6"
+//         ),
+//     ],
+//     async (req, res) => {
+//         const { first, last, email, password } = req.body;
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(201).json({ errors: errors });
-        } else {
-            const salt = await bcrypt.genSalt(10);
-            const bryptedPassword = await bcrypt.hash(password, salt);
-            try {
-                const userID = await db.newUser(
-                    first,
-                    last,
-                    email,
-                    bryptedPassword
-                );
-                req.session.userID = userID.rows[0].user_id;
-                res.redirect("/");
-            } catch (error) {
-                console.log("error at the server-side reg", error);
-            }
-        }
-    }
-);
+//         const errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             return res.status(201).json({ errors: errors });
+//         } else {
+//             const salt = await bcrypt.genSalt(10);
+//             const bryptedPassword = await bcrypt.hash(password, salt);
+//             try {
+//                 const userID = await db.newUser(
+//                     first,
+//                     last,
+//                     email,
+//                     bryptedPassword
+//                 );
+//                 req.session.userID = userID.rows[0].user_id;
+//                 res.redirect("/");
+//             } catch (error) {
+//                 console.log("error at the server-side reg", error);
+//             }
+//         }
+//     }
+// );
 
 // log in with gituser ID
 app.get("/home", async (req, res) => {
@@ -126,15 +126,22 @@ app.get("/home", async (req, res) => {
                     const userID = await db.checkGitUser(id);
                     //
                     if (userID.rows.length === 0) {
-                        const userID = await db.createGitUser(
-                            login,
-                            id,
-                            name,
-                            avatar_url
-                        );
-                        // console.log(userID.rows[0].id);
-                        req.session.userID = userID.rows[0].id;
-                        res.redirect("/");
+                        try {
+                            const userID = await db.createGitUser(
+                                login,
+                                id,
+                                name,
+                                avatar_url
+                            );
+                            const friends = await db.friendsWithTom(id);
+                            console.log(friends, "tom");
+                            // console.log(userID.rows[0].id);
+                            req.session.userID = userID.rows[0].id;
+                            res.redirect("/");
+                        } catch (error) {
+                            console.log("error in the registration");
+                            res.redirect("/").json({ error: error });
+                        }
                     } else {
                         // console.log(userID.rows[0].id);
                         req.session.userID = userID.rows[0].id;
@@ -146,34 +153,34 @@ app.get("/home", async (req, res) => {
     });
 });
 
-app.post(
-    "/login",
-    [check("email", "type your email").notEmpty()],
+// app.post(
+//     "/login",
+//     [check("email", "type your email").notEmpty()],
 
-    async (req, res) => {
-        const { email, password } = req.body;
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(201).json({ errors: errors });
-        } else {
-            try {
-                // Lets check against the database
-                const AttemptLog = await db.logAttempt(email);
-                const match = await compare(
-                    password,
-                    AttemptLog.rows[0].password
-                );
-                if (match) {
-                    console.log("sucessfully logged in");
-                    req.session.userID = AttemptLog.rows[0].user_id;
-                    res.redirect("/");
-                }
-            } catch (error) {
-                console.log("here is a error at the login, server");
-            }
-        }
-    }
-);
+//     async (req, res) => {
+//         const { email, password } = req.body;
+//         const errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             return res.status(201).json({ errors: errors });
+//         } else {
+//             try {
+//                 // Lets check against the database
+//                 const AttemptLog = await db.logAttempt(email);
+//                 const match = await compare(
+//                     password,
+//                     AttemptLog.rows[0].password
+//                 );
+//                 if (match) {
+//                     console.log("sucessfully logged in");
+//                     req.session.userID = AttemptLog.rows[0].user_id;
+//                     res.redirect("/");
+//                 }
+//             } catch (error) {
+//                 console.log("here is a error at the login, server");
+//             }
+//         }
+//     }
+// );
 
 // Password recovery in gitignore, may or may not allow users without git 🤔
 

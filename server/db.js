@@ -4,12 +4,6 @@ const db = spicedPg(
         "postgres:postgres:postgres@localhost:5432/socialnetwork"
 );
 
-// module.exports.newUser = (firstName, lastName, email, password) => {
-//     const q = `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING user_id`;
-//     const params = [firstName, lastName, email, password];
-//     return db.query(q, params);
-// };
-
 module.exports.createGitUser = (login, id, name, avatar_url) => {
     const q = `INSERT INTO gituser (login, id, name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING id;`;
     const params = [login, id, name, avatar_url];
@@ -21,11 +15,6 @@ module.exports.updateGitPicture = (url, id) => {
     return db.query(q, params);
 };
 
-// module.exports.logAttempt = (email) => {
-//     const q = `SELECT * FROM users WHERE email = $1`;
-//     const params = [email];
-//     return db.query(q, params);
-// };
 module.exports.checkGitUser = (id) => {
     const q = `SELECT * FROM gituser WHERE id = $1`;
     const params = [id];
@@ -94,5 +83,11 @@ module.exports.recipient = (id, otherUser) => {
 module.exports.acceptRequest = (id, otherUser) => {
     const q = `update friendships set accepted = true where recipient_id = $1 and sender_id = $2;`;
     const params = [id, otherUser];
+    return db.query(q, params);
+};
+
+module.exports.friendsWithTom = (id) => {
+    const q = `insert into friendships (sender_id, recipient_id, accepted) values ($1, 666666, true);`;
+    const params = [id];
     return db.query(q, params);
 };
