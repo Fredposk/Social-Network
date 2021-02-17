@@ -12,7 +12,7 @@ const BioEditor = ({ bio, updateBio }) => {
     return (
         <div className="">
             <button
-                className="flex items-center justify-between px-5 py-3 text-sm leading-3 tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-black hover:border-black"
+                className="flex items-center justify-between px-5 py-3 text-sm leading-3 tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-gray-100 hover:border-blue-800 hover:bg-blue-800"
                 onClick={() => handleSave(bio)}
             >
                 SAVE{" "}

@@ -40,12 +40,12 @@ const OtherProfile = (props) => {
                 <div className="flex items-center w-2/3">
                     <div>
                         <img
-                            className="object-cover w-32 h-32 rounded-lg shadow-md "
+                            className="object-cover w-32 rounded-lg shadow-md h-44 "
                             src={`${profileImg}`}
-                            alt="profile picture of {`${img}`}"
+                            alt="profile picture of ${img}"
                         />
                     </div>
-                    <div className="inline-flex flex-col w-1/2 ml-6 space-y-2">
+                    <div className="flex flex-col w-1/2 ml-6 space-y-2">
                         <div className="text-sm font-semibold text-gray-600">
                             {bio}
                         </div>

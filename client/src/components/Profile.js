@@ -27,7 +27,7 @@ let Profile = ({
         updateLocation(location.pathname);
     });
 
-    if (bio === null) {
+    if (bio.length < 4) {
         bio = "Tell us more about yourself";
     }
 
@@ -38,7 +38,7 @@ let Profile = ({
             <div className="flex justify-between">
                 <div className="flex items-center w-1/3 mt-4 ml-6">
                     <img
-                        className="object-cover w-32 rounded-lg shadow-lg h-36 "
+                        className="object-cover w-32 rounded-lg shadow-lg h-44 "
                         src={`${img}`}
                         alt="user Profile Picture"
                     />

@@ -1,11 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const axios = require("axios");
 const { uploader } = require("./upload");
 const s3 = require("./s3");
-const { compare } = bcrypt;
+// const { compare } = bcrypt;
 const fetch = require("node-fetch");
 // validator
 const { check, validationResult } = require("express-validator");
@@ -279,6 +279,7 @@ app.get("/users/friendstatus/:id", async (req, res) => {
                     res.status(200).json({
                         friends: false,
                         button: "Accept Friend Request",
+                        btn: "Reject Friend Request",
                     });
                 }
             } else {
