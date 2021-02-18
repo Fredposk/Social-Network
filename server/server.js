@@ -334,6 +334,7 @@ app.post("/users/friendrequest/end", async (req, res) => {
         res.status(200).json({
             friends: false,
             button: "Send Friend Request",
+            id: req.body.id,
         });
     } catch (error) {
         console.log("error deleting try again");
@@ -347,9 +348,21 @@ app.post("/users/friendrequest/accept", async (req, res) => {
         res.status(200).json({
             friends: true,
             button: "End Friendship",
+            id: req.body.id,
         });
     } catch (error) {
         console.log("error Aceepting");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.get("/getFriendsList", async (req, res) => {
+    try {
+        const list = await db.GetFriendsList(req.session.userID);
+
+        res.status(200).json({ list: list.rows });
+    } catch (error) {
+        console.log("error Fetching friends list");
         res.status(201).json({ error: error });
     }
 });

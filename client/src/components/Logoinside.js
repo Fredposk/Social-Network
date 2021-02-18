@@ -4,6 +4,19 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
+const picEnter = {
+    hidden: { x: "100vw", opacity: 0 },
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            delay: 0.3,
+            duration: 0.4,
+        },
+    },
+};
+
 const Logoinside = ({ name, picture }) => {
     const logOut = async () => {
         try {
@@ -19,15 +32,22 @@ const Logoinside = ({ name, picture }) => {
 
     return (
         <div className="flex items-center justify-between">
-            <div className="flex items-center mt-2 ml-4 ">
+            <motion.div
+                variants={picEnter}
+                initial="hidden"
+                animate="visible"
+                className="flex items-center mt-2 ml-4 "
+            >
                 <motion.div className="">
-                    <motion.svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-8 h-8 m-3 transform rotate-180 cursor-pointer hover:opacity-75 md:w-10 md:h-10"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M24 22h-24l12-20z" />
-                    </motion.svg>
+                    <Link to="/">
+                        <motion.svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-8 h-8 m-3 transform rotate-180 cursor-pointer hover:opacity-75 md:w-10 md:h-10"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M24 22h-24l12-20z" />
+                        </motion.svg>
+                    </Link>
                 </motion.div>
 
                 <div className="flex items-center space-x-6 ">
@@ -52,7 +72,7 @@ const Logoinside = ({ name, picture }) => {
                         </svg>
                     </div>
                 </div>
-            </div>
+            </motion.div>
             <div className="flex mr-6 space-x-2">
                 <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
                     Careers

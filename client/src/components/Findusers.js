@@ -8,7 +8,7 @@ const pageEnter = {
     visible: {
         x: 0,
         opacity: 1,
-        transition: { type: "tween", delay: 0.2, duration: 0.4 },
+        transition: { type: "spring", delay: 0.3, duration: 0.5 },
     },
 };
 

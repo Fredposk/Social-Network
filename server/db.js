@@ -91,3 +91,15 @@ module.exports.friendsWithTom = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.GetFriendsList = (id) => {
+    const q = `
+ SELECT gituser.id, name, avatar_url, accepted
+    FROM friendships
+    JOIN gituser
+    ON (accepted = false AND sender_id = gituser.id AND recipient_id = $1)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = gituser.id)
+    OR (accepted = true AND sender_id = gituser.id AND recipient_id = $1)`;
+    const params = [id];
+    return db.query(q, params);
+};

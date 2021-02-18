@@ -58,12 +58,11 @@ const Reg = () => {
                     A Spiced 2021 React Project.
                 </div>
                 <div className="text-sm text-gray-600">
-                    Must a github account to enter,
+                    Must have a github account to
                     <a onClick={getGit} className="font-bold cursor-pointer">
                         {" "}
-                        sign up{" "}
+                        sign up.{" "}
                     </a>
-                    today
                 </div>
             </div>
         </motion.div>

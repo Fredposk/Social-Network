@@ -1,0 +1,26 @@
+import axios from "./components/axios";
+
+export async function getFriendsList() {
+    const response = await axios.get("/getFriendsList");
+    return {
+        type: "RETURNED_FRIENDS_LIST",
+        friends: response.data.list,
+    };
+}
+
+export async function endFriend(id) {
+    const response = await axios.post("/users/friendrequest/end", { id: id });
+    return {
+        type: "UNFRIEND",
+        friends: response.data.id,
+    };
+}
+export async function acceptFriend(id) {
+    const response = await axios.post("/users/friendrequest/accept", {
+        id: id,
+    });
+    return {
+        type: "ACCEPT_FRIEND",
+        newFriend: response.data.id,
+    };
+}
