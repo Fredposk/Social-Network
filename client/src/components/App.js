@@ -24,13 +24,15 @@ const App = () => {
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const [currentTab, setTab] = useState("");
+    const [feed, setFeed] = useState("");
 
     useEffect(async () => {
         const userData = await axios.get("/userdata");
-        const { avatar_url, name, bio } = userData.data.details.rows[0];
+        const { avatar_url, name, bio, feed } = userData.data.details.rows[0];
         setProfileImg(avatar_url);
         setName(name);
         setBio(bio);
+        setFeed(feed);
     }, []);
 
     const newPic = (item) => {
@@ -43,6 +45,10 @@ const App = () => {
 
     const updateLocation = (item) => {
         setTab(item);
+    };
+
+    const updateFeed = (item) => {
+        setFeed(item);
     };
 
     return (
@@ -120,6 +126,8 @@ const App = () => {
                             bio={bio}
                             updateBio={updateBio}
                             updateLocation={updateLocation}
+                            feed={feed}
+                            updateFeed={updateFeed}
                         />
                     )}
                 />

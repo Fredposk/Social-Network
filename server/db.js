@@ -103,3 +103,9 @@ module.exports.GetFriendsList = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.updateFeed = (feed, id) => {
+    const q = `update gituser set feed = $1 where id = $2 returning feed`;
+    const params = [feed, id];
+    return db.query(q, params);
+};

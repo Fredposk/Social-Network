@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axios from "./axios";
 import { Link } from "react-router-dom";
 import { getFriendsList, endFriend, acceptFriend } from "../actions";
 import { useSelector } from "react-redux";
@@ -47,13 +46,13 @@ const Friends = ({ updateLocation }) => {
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="">FRIENDS</div>
-            <div className="grid grid-cols-2 grid-rows-2 bg-red-300">
+            <div className="grid grid-cols-2 grid-rows-2 ">
                 {friends &&
                     friends.map((friend, index) => {
                         return (
                             <div
                                 key={index}
-                                className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3 bg-purple-400"
+                                className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3"
                             >
                                 <div className="flex items-center ">
                                     <div>
@@ -91,7 +90,7 @@ const Friends = ({ updateLocation }) => {
             </div>
             <div>
                 <div>Wannabies</div>
-                <div className="grid grid-cols-2 bg-blue-300">
+                <div className="grid grid-cols-2">
                     {wannabies &&
                         wannabies.map((wannabie, index) => {
                             return (
@@ -130,8 +129,10 @@ const Friends = ({ updateLocation }) => {
                                                 </div>
                                                 <div
                                                     onClick={() =>
-                                                        console.log(
-                                                            "clicked the reject"
+                                                        dispatch(
+                                                            endFriend(
+                                                                wannabie.id
+                                                            )
                                                         )
                                                     }
                                                     className="px-3 py-3 mt-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-red-500 border border-transparent rounded shadow cursor-pointer opacity-80 hover:bg-white hover:text-black hover:border-black"

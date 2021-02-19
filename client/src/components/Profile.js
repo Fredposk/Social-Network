@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Uploader from "./Uploader";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import TwitterFeed from "./TwitterFeed";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -20,6 +21,8 @@ let Profile = ({
     bio,
     updateBio,
     updateLocation,
+    feed,
+    updateFeed,
 }) => {
     const [uploader, setUploader] = useState(false);
 
@@ -68,6 +71,7 @@ let Profile = ({
                         </div>
                     </div>
                 </div>
+                <TwitterFeed feed={feed} updateFeed={updateFeed} />
             </div>
         </motion.div>
     );

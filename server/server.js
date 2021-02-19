@@ -367,6 +367,17 @@ app.get("/getFriendsList", async (req, res) => {
     }
 });
 
+app.post("/api/feed/:feed", async (req, res) => {
+    const feed = req.params.feed;
+    try {
+        const newFeed = await db.updateFeed(feed, req.session.userID);
+        res.status(200).json({ newFeed: newFeed.rows });
+    } catch (error) {
+        console.log("error Feeed");
+        res.status(201).json({ error: error });
+    }
+});
+
 app.get("/logout", async (req, res) => {
     req.session.userID = null;
     res.redirect("/");
