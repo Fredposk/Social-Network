@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { motion } from "framer-motion";
 import axios from "./axios";
@@ -6,8 +5,8 @@ import axios from "./axios";
 const hoverVariants = {
     hidden: {},
     visible: {
-        x: -8,
-        duration: 0.4,
+        x: -9,
+        duration: 0.5,
     },
 };
 
@@ -89,12 +88,6 @@ const TwitterFeed = ({ feed, updateFeed }) => {
                 "https://pbs.twimg.com/profile_images/1295975423654977537/dHw9JcrK_400x400.jpg",
         },
         {
-            id: 12,
-            handle: "tailwindcss",
-            logo:
-                "https://pbs.twimg.com/profile_images/1278691829135876097/I4HKOLJw_400x400.png",
-        },
-        {
             id: 13,
             handle: "ReutersTech",
             logo:
@@ -112,6 +105,14 @@ const TwitterFeed = ({ feed, updateFeed }) => {
             logo:
                 "https://pbs.twimg.com/profile_images/1228050699348561920/YvWAQD2L_400x400.jpg",
         },
+        {
+            id: 16,
+            handle: "EarthPix",
+            logo:
+                "https://pbs.twimg.com/profile_images/712703916358537217/mcOketun_400x400.jpg",
+        },
+        // { id: 16, handle: "DeutscheWelle", logo: "DW" },
+        // { id: 16, handle: "DeutscheWelle", logo: "DW" },
         // { id: 16, handle: "DeutscheWelle", logo: "DW" },
     ];
 

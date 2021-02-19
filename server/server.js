@@ -11,6 +11,13 @@ const fetch = require("node-fetch");
 const { check, validationResult } = require("express-validator");
 const csurf = require("csurf");
 const app = express();
+// Socket.io
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+
 const db = require("./db");
 const cookieSession = require("cookie-session");
 const compression = require("compression");
@@ -392,6 +399,10 @@ app.get("*", function (req, res) {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log(`I'm listening on ${PORT}`);
+});
+
+io.on("welcome", (socket) => {
+    console.log("connected to socket", socket.id);
 });

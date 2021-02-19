@@ -15,33 +15,6 @@ const pageEnter = {
 };
 
 const Reg = () => {
-    //     const [first, setFirst] = useState("");
-    //     const [last, setLast] = useState("");
-    //     const [email, setEmail] = useState("");
-    //     const [password, setPassword] = useState("");
-
-    //     const onClick = async () => {
-    //         const userRegData = {
-    //             first: first,
-    //             last: last,
-    //             email: email,
-    //             password: password,
-    //         };
-    //         // console.log(userRegData);
-
-    //         try {
-    //             const response = await axios.post("/registration", userRegData);
-    //             if (response.status === 201) {
-    //                 console.log(response, "checked errors");
-    //                 // From here I can access all errors from express-validator
-    //             } else if (response.status === 200) {
-    //                 location.replace("/");
-    //             }
-    //         } catch (error) {
-    //             console.log(error, "caught error in client side");
-    //         }
-    //     };
-
     const getGit = async () => {
         window.location.replace(
             "https://github.com/login/oauth/authorize?client_id=72f26d442e09c7e4185a"

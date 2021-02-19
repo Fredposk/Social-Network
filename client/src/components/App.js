@@ -109,7 +109,7 @@ const App = () => {
                                         : ""
                                 } cursor-pointer`}
                             >
-                                Find Devs
+                                Find People
                             </motion.div>
                         </Link>
                     </div>

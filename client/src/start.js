@@ -6,6 +6,9 @@ import App from "./components/App";
 import Welcome from "./components/Welcome";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
+import { io } from "socket.io-client";
+
+// const socket = io.connect();
 
 const store = createStore(
     reducer,

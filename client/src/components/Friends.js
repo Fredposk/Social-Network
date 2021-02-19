@@ -44,15 +44,22 @@ const Friends = ({ updateLocation }) => {
     );
 
     return (
-        <motion.div variants={pageEnter} initial="hidden" animate="visible">
-            <div className="">FRIENDS</div>
-            <div className="grid grid-cols-2 grid-rows-2 ">
+        <motion.div
+            variants={pageEnter}
+            initial="hidden"
+            animate="visible"
+            className="flex justify-start"
+        >
+            <div className="flex flex-col items-center ">
+                <div className="ml-12 text-2xl font-semibold tracking-wider md:text-2-xl">
+                    Friends:
+                </div>
                 {friends &&
                     friends.map((friend, index) => {
                         return (
                             <div
                                 key={index}
-                                className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3"
+                                className="inline-flex px-12 mt-6 mb-2 space-y-3 "
                             >
                                 <div className="flex items-center ">
                                     <div>
@@ -77,7 +84,7 @@ const Friends = ({ updateLocation }) => {
                                                         endFriend(friend.id)
                                                     )
                                                 }
-                                                className="px-3 py-3 mt-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-red-500 border border-transparent rounded shadow cursor-pointer opacity-80 hover:bg-white hover:text-black hover:border-black"
+                                                className="px-2 py-2 mt-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-red-500 border border-transparent rounded shadow cursor-pointer opacity-80 hover:bg-white hover:text-black hover:border-black"
                                             >
                                                 End Friendship
                                             </div>
@@ -89,14 +96,16 @@ const Friends = ({ updateLocation }) => {
                     })}
             </div>
             <div>
-                <div>Wannabies</div>
-                <div className="grid grid-cols-2">
+                <div className="flex flex-col items-center">
+                    <div className="ml-12 text-2xl font-semibold tracking-wider md:text-2-xl">
+                        Pending Requests:
+                    </div>
                     {wannabies &&
                         wannabies.map((wannabie, index) => {
                             return (
                                 <div
                                     key={index}
-                                    className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3 "
+                                    className="inline-flex px-12 mt-6 mb-2 space-y-3 "
                                 >
                                     <div className="flex items-center ">
                                         <div>
@@ -123,7 +132,7 @@ const Friends = ({ updateLocation }) => {
                                                             )
                                                         )
                                                     }
-                                                    className="px-3 py-3 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-blue-800 border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
+                                                    className="px-2 py-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-blue-800 border border-transparent rounded shadow cursor-pointer hover:bg-white hover:text-black hover:border-black"
                                                 >
                                                     Accept Request
                                                 </div>
@@ -135,7 +144,7 @@ const Friends = ({ updateLocation }) => {
                                                             )
                                                         )
                                                     }
-                                                    className="px-3 py-3 mt-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-red-500 border border-transparent rounded shadow cursor-pointer opacity-80 hover:bg-white hover:text-black hover:border-black"
+                                                    className="px-2 py-2 mt-2 text-xs leading-3 tracking-wider text-white uppercase transition duration-500 ease-in-out bg-red-500 border border-transparent rounded shadow cursor-pointer opacity-80 hover:bg-white hover:text-black hover:border-black"
                                                 >
                                                     Reject Request
                                                 </div>
