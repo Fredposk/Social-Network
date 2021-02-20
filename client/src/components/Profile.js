@@ -32,6 +32,10 @@ let Profile = ({
 
     const [writeBio, setwriteBio] = useState(bio);
 
+    const closeUploader = (item) => {
+        setUploader(item);
+    };
+
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
             <div className="flex justify-between">
@@ -66,7 +70,12 @@ let Profile = ({
                                         change picture
                                     </button>
                                 </div>
-                                {uploader && <Uploader picUpdate={picUpdate} />}
+                                {uploader && (
+                                    <Uploader
+                                        picUpdate={picUpdate}
+                                        closeUploader={closeUploader}
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

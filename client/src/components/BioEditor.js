@@ -3,10 +3,14 @@ import axios from "./axios";
 
 const BioEditor = ({ bio, updateBio }) => {
     const handleSave = async (item) => {
-        const data = await axios.post("/userdata/profile/bio", {
-            newBio: item,
-        });
-        return updateBio(data);
+        try {
+            const data = await axios.post("/userdata/profile/bio", {
+                newBio: item,
+            });
+            return updateBio(data);
+        } catch (error) {
+            console.log("error updating bio");
+        }
     };
 
     return (

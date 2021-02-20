@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Uploader = ({ picUpdate }) => {
+const Uploader = ({ picUpdate, closeUploader }) => {
     const [filename, setFileName] = useState(null);
 
     const sendUpload = async () => {
@@ -10,6 +10,7 @@ const Uploader = ({ picUpdate }) => {
         try {
             const newPic = await axios.post("/userdata/profile/picture", fd);
             picUpdate(newPic);
+            closeUploader(false);
             //  ///
         } catch (error) {
             console.log("error in uploading image");
@@ -17,8 +18,8 @@ const Uploader = ({ picUpdate }) => {
     };
 
     return (
-        <div className="relative mt-2">
-            <div className="fixed flex items-center px-2 py-1 text-sm text-gray-700 bg-gray-200 rounded-lg shadow-md left-6 focus:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent">
+        <div className="">
+            <div className="fixed flex items-center px-2 py-1 mt-3 text-sm text-gray-700 bg-gray-200 rounded-lg shadow-md left-6 focus:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent">
                 <input
                     onChange={(e) => setFileName(e.target.files[0])}
                     type="file"
