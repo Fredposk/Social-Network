@@ -54,10 +54,11 @@ const Friends = ({ updateLocation }) => {
                 <div className="ml-12 text-2xl font-semibold tracking-wider md:text-2-xl">
                     Friends:
                 </div>
+
                 {friends &&
                     friends.map((friend, index) => {
                         return (
-                            <div
+                            <motion.div
                                 key={index}
                                 className="inline-flex px-12 mt-6 mb-2 space-y-3 "
                             >
@@ -91,10 +92,11 @@ const Friends = ({ updateLocation }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
             </div>
+
             <div>
                 <div className="flex flex-col items-center">
                     <div className="ml-12 text-2xl font-semibold tracking-wider md:text-2-xl">

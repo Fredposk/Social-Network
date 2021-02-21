@@ -20,7 +20,7 @@ const NavBar = ({ darkMode, currentTab }) => {
         >
             <div
                 className={`flex ml-6 space-x-5 ${
-                    darkMode ? "text-black" : "text-gray-500"
+                    darkMode ? "text-gray-800" : "text-gray-500"
                 }`}
             >
                 <Link to="/">
@@ -39,18 +39,14 @@ const NavBar = ({ darkMode, currentTab }) => {
                     whileHover="visible"
                     className={`border-b border-transparent ${
                         currentTab === "/chat" ? "border-black" : ""
-                    } cursor-pointer ${
-                        darkMode ? "text-black" : "text-gray-500"
-                    }`}
+                    } cursor-pointer`}
                 >
                     Chat
                 </motion.div>
                 <motion.div
                     variants={hoverVariants}
                     whileHover="visible"
-                    className={`${
-                        darkMode ? "text-black" : "text-gray-500"
-                    } border-b border-transparent cursor-pointer `}
+                    className={` border-b border-transparent cursor-pointer `}
                 >
                     Online
                 </motion.div>
@@ -60,9 +56,7 @@ const NavBar = ({ darkMode, currentTab }) => {
                         whileHover="visible"
                         className={`border-b border-transparent ${
                             currentTab == "/friends" ? "border-black" : ""
-                        } ${
-                            darkMode ? "text-black" : "text-gray-500"
-                        } cursor-pointer`}
+                        }  cursor-pointer`}
                     >
                         Friends
                     </motion.div>
@@ -74,9 +68,7 @@ const NavBar = ({ darkMode, currentTab }) => {
                         whileHover="visible"
                         className={`border-b border-transparent ${
                             currentTab == "/find/users" ? "border-black" : ""
-                        } ${
-                            darkMode ? "text-black" : "text-gray-500"
-                        } cursor-pointer`}
+                        }  cursor-pointer`}
                     >
                         Find People
                     </motion.div>

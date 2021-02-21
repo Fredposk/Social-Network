@@ -47,7 +47,7 @@ let Profile = ({
                         alt="user Profile Picture"
                     />
                     <div className="flex flex-col w-4/5 ml-6 space-y-3">
-                        <div className="text-2xl font-bold text-gray-800 uppercase ">
+                        <div className="text-2xl font-bold text-black uppercase ">
                             {profileInfo}
                         </div>
 

@@ -2,7 +2,6 @@ import axios from "./axios";
 import { motion } from "framer-motion";
 
 import { Link } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 
 const picEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -63,7 +62,7 @@ const Logoinside = ({ name, picture, activatedarkMode, darkMode }) => {
                         src={`${picture}`}
                         alt="user Profile Picture"
                     />
-                    <div className="tracking-wider text-md md:text-lg">
+                    <div className="tracking-wider text-black text-md md:text-lg">
                         {name}
                     </div>
                     <div
