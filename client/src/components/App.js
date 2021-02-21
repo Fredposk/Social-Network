@@ -9,15 +9,16 @@ import Logoinside from "./Logoinside";
 import { motion } from "framer-motion";
 import Findusers from "./Findusers";
 import Friends from "./Friends";
+import NavBar from "./NavBar";
 
-const hoverVariants = {
-    hidden: {},
-    visible: {
-        y: -4,
-        color: "#000000",
-        duration: 0.4,
-    },
-};
+// const hoverVariants = {
+//     hidden: {},
+//     visible: {
+//         y: -4,
+//         color: "#000000",
+//         duration: 0.4,
+//     },
+// };
 
 const App = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -25,6 +26,7 @@ const App = () => {
     const [bio, setBio] = useState("");
     const [currentTab, setTab] = useState("");
     const [feed, setFeed] = useState("");
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(async () => {
         const userData = await axios.get("/userdata");
@@ -51,12 +53,28 @@ const App = () => {
         setFeed(item);
     };
 
+    const activatedarkMode = () => {
+        setDarkMode(!darkMode);
+    };
+
     return (
         <Router>
-            <div className="">
-                <Logoinside name={name} picture={profileImg} />
+            <div
+                className={`h-screen ${darkMode ? "bg-gray-400" : "bg-white "}`}
+            >
+                <Logoinside
+                    name={name}
+                    picture={profileImg}
+                    activatedarkMode={activatedarkMode}
+                    darkMode={darkMode}
+                />
+                <NavBar darkMode={darkMode} currentTab={currentTab} />
                 {/* <ProfilePic img={profileImg} size={`20rem`} /> */}
-                <div className="mt-4 mb-2 text-gray-500 border-b border-gray-300 text-md ">
+                {/* <div
+                    className={`mt-4 mb-1 ${
+                        darkMode ? "border-black" : "border-gray-300"
+                    }  border-b  text-md`}
+                >
                     <div className="flex ml-6 space-x-5">
                         <Link to="/">
                             <motion.div
@@ -64,7 +82,9 @@ const App = () => {
                                 whileHover="visible"
                                 className={`border-b border-transparent   ${
                                     currentTab === "/" ? "border-black" : ""
-                                } cursor-pointer`}
+                                } cursor-pointer ${
+                                    darkMode ? "text-black" : "text-gray-500"
+                                }`}
                             >
                                 Overview
                             </motion.div>
@@ -74,14 +94,18 @@ const App = () => {
                             whileHover="visible"
                             className={`border-b border-transparent ${
                                 currentTab === "/chat" ? "border-black" : ""
-                            } cursor-pointer`}
+                            } cursor-pointer ${
+                                darkMode ? "text-black" : "text-gray-500"
+                            }`}
                         >
                             Chat
                         </motion.div>
                         <motion.div
                             variants={hoverVariants}
                             whileHover="visible"
-                            className="border-b border-transparent cursor-pointer"
+                            className={`${
+                                darkMode ? "text-black" : "text-gray-500"
+                            } border-b border-transparent cursor-pointer `}
                         >
                             Online
                         </motion.div>
@@ -93,6 +117,8 @@ const App = () => {
                                     currentTab == "/friends"
                                         ? "border-black"
                                         : ""
+                                } ${
+                                    darkMode ? "text-black" : "text-gray-500"
                                 } cursor-pointer`}
                             >
                                 Friends
@@ -107,13 +133,15 @@ const App = () => {
                                     currentTab == "/find/users"
                                         ? "border-black"
                                         : ""
+                                } ${
+                                    darkMode ? "text-black" : "text-gray-500"
                                 } cursor-pointer`}
                             >
                                 Find People
                             </motion.div>
                         </Link>
                     </div>
-                </div>
+                </div> */}
 
                 <Route
                     exact
@@ -128,6 +156,7 @@ const App = () => {
                             updateLocation={updateLocation}
                             feed={feed}
                             updateFeed={updateFeed}
+                            darkMode={darkMode}
                         />
                     )}
                 />

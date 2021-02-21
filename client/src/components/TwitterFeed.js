@@ -10,7 +10,7 @@ const hoverVariants = {
     },
 };
 
-const TwitterFeed = ({ feed, updateFeed }) => {
+const TwitterFeed = ({ feed, updateFeed, darkMode }) => {
     const saveChoice = async (item) => {
         try {
             const feed = await axios.post(`/api/feed/${item}`);
@@ -19,7 +19,6 @@ const TwitterFeed = ({ feed, updateFeed }) => {
             console.log("error saving feed choice", error);
         }
     };
-
     const feeds = [
         {
             id: 1,
@@ -85,7 +84,7 @@ const TwitterFeed = ({ feed, updateFeed }) => {
             id: 11,
             handle: "elonmusk",
             logo:
-                "https://pbs.twimg.com/profile_images/1295975423654977537/dHw9JcrK_400x400.jpg",
+                "https://pbs.twimg.com/profile_images/1363228426094538754/3ncXqbh-_400x400.jpg",
         },
         {
             id: 13,
@@ -111,15 +110,21 @@ const TwitterFeed = ({ feed, updateFeed }) => {
             logo:
                 "https://pbs.twimg.com/profile_images/712703916358537217/mcOketun_400x400.jpg",
         },
-        // { id: 16, handle: "DeutscheWelle", logo: "DW" },
+        {
+            id: 17,
+            handle: "F1",
+            logo:
+                "https://pbs.twimg.com/profile_images/1344975732301246465/kb6rHiYJ_400x400.jpg",
+        },
         // { id: 16, handle: "DeutscheWelle", logo: "DW" },
         // { id: 16, handle: "DeutscheWelle", logo: "DW" },
     ];
+    // const darkTwitter = {`${darkMode} `
 
     return (
         <div className="flex h-56 space-x-5">
-            <div className=" centerContent">
-                <div className="selfCenter standardWidth">
+            <div className="rounded centerContent">
+                <div className={`${darkMode ? "bg-gray-400" : ""}`}>
                     <TwitterTimelineEmbed
                         sourceType="widget"
                         noScrollbar={true}
@@ -128,6 +133,7 @@ const TwitterFeed = ({ feed, updateFeed }) => {
                         screenName={`${feed}`}
                         noHeader={true}
                         noFooter={true}
+                        transparent
                         options={{ height: 650, width: 400 }}
                     />
                 </div>

@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 import axios from "./axios";
 
-const BioEditor = ({ bio, updateBio }) => {
+const BioEditor = ({ bio, updateBio, darkMode }) => {
     const handleSave = async (item) => {
         try {
             const data = await axios.post("/userdata/profile/bio", {
@@ -16,7 +16,11 @@ const BioEditor = ({ bio, updateBio }) => {
     return (
         <div className="">
             <button
-                className="flex items-center justify-between px-5 py-3 text-sm leading-3 tracking-wider text-gray-700 uppercase transition duration-500 ease-in-out bg-transparent border border-gray-300 rounded shadow cursor-pointer hover:text-gray-100 hover:border-blue-800 hover:bg-blue-800"
+                className={`flex items-center ${
+                    darkMode
+                        ? "text-black hover:border-white border-black hover:text-white"
+                        : "text-gray-700 border-gray-300 "
+                } justify-between px-5 py-3 text-sm leading-3 tracking-wider hover:text-gray-100 hover:border-blue-800 hover:bg-blue-800  uppercase transition duration-500 ease-in-out bg-transparent border  rounded shadow cursor-pointer `}
                 onClick={() => handleSave(bio)}
             >
                 SAVE{" "}

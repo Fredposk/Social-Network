@@ -17,7 +17,7 @@ const picEnter = {
     },
 };
 
-const Logoinside = ({ name, picture }) => {
+const Logoinside = ({ name, picture, activatedarkMode, darkMode }) => {
     const logOut = async () => {
         try {
             await axios.get("/logout");
@@ -31,7 +31,7 @@ const Logoinside = ({ name, picture }) => {
     };
 
     return (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
             <motion.div
                 variants={picEnter}
                 initial="hidden"
@@ -51,7 +51,11 @@ const Logoinside = ({ name, picture }) => {
                 </motion.div>
 
                 <div className="flex items-center space-x-6 ">
-                    <div className="text-xl italic font-light text-gray-500">
+                    <div
+                        className={`text-xl italic ${
+                            darkMode ? "text-black" : "text-gray-500"
+                        } font-light `}
+                    >
                         /
                     </div>
                     <img
@@ -62,7 +66,14 @@ const Logoinside = ({ name, picture }) => {
                     <div className="tracking-wider text-md md:text-lg">
                         {name}
                     </div>
-                    <div className="px-1 py-2 ml-2 text-gray-500 transition duration-500 border border-gray-200 rounded shadow cursor-pointer hover:border-black hover:text-black">
+                    <div
+                        onClick={activatedarkMode}
+                        className={`px-1 py-2 ml-2 ${
+                            darkMode
+                                ? "text-black border-black hover:border-white hover:text-white"
+                                : "text-gray-500 border-gray-200 hover:border-black hover:text-black"
+                        }   transition duration-500 border  rounded shadow cursor-pointer  `}
+                    >
                         <svg
                             className="w-4 h-4 transform rotate-90 fill-current "
                             xmlns="http://www.w3.org/2000/svg"
@@ -74,13 +85,31 @@ const Logoinside = ({ name, picture }) => {
                 </div>
             </motion.div>
             <div className="flex mr-6 space-x-2">
-                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
+                <div
+                    className={`px-2 py-1  ${
+                        darkMode
+                            ? "text-black hover:border-white border-black hover:text-white "
+                            : "text-gray-600 hover:border-black border-gray-50 hover:text-black"
+                    }  transition duration-500 border rounded shadow cursor-pointer   hover:shadow-md `}
+                >
                     Careers
                 </div>
-                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
+                <div
+                    className={`px-2 py-1  ${
+                        darkMode
+                            ? "text-black hover:border-white border-black hover:text-white "
+                            : "text-gray-600 hover:border-black border-gray-50 hover:text-black"
+                    }  transition duration-500 border rounded shadow cursor-pointer   hover:shadow-md `}
+                >
                     Blog
                 </div>
-                <div className="px-2 py-1 text-gray-600 transition duration-500 border rounded shadow cursor-pointer hover:text-black border-gray-50 hover:shadow-md hover:border-black">
+                <div
+                    className={`px-2 py-1  ${
+                        darkMode
+                            ? "text-black hover:border-white border-black hover:text-white "
+                            : "text-gray-600 hover:border-black border-gray-50 hover:text-black"
+                    }  transition duration-500 border rounded shadow cursor-pointer   hover:shadow-md `}
+                >
                     Feedback
                 </div>
 

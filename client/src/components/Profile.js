@@ -23,6 +23,7 @@ let Profile = ({
     updateLocation,
     feed,
     updateFeed,
+    darkMode,
 }) => {
     const [uploader, setUploader] = useState(false);
 
@@ -38,7 +39,7 @@ let Profile = ({
 
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
-            <div className="flex justify-between">
+            <div className="flex justify-between ">
                 <div className="flex items-center w-1/3 mt-4 ml-6">
                     <img
                         className="object-cover w-32 rounded-lg shadow-lg h-44 "
@@ -60,7 +61,11 @@ let Profile = ({
                             defaultValue={`${bio}`}
                         />
                         <div className="flex space-x-2">
-                            <BioEditor bio={writeBio} updateBio={updateBio} />
+                            <BioEditor
+                                bio={writeBio}
+                                updateBio={updateBio}
+                                darkMode={darkMode}
+                            />
                             <div className="">
                                 <div>
                                     <button
@@ -80,7 +85,11 @@ let Profile = ({
                         </div>
                     </div>
                 </div>
-                <TwitterFeed feed={feed} updateFeed={updateFeed} />
+                <TwitterFeed
+                    feed={feed}
+                    updateFeed={updateFeed}
+                    darkMode={darkMode}
+                />
             </div>
         </motion.div>
     );
