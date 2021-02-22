@@ -12,10 +12,12 @@ const { check, validationResult } = require("express-validator");
 const csurf = require("csurf");
 const app = express();
 // Socket.io
-const server = require("http").Server(app);
+const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
-    allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+    },
 });
 
 const db = require("./db");
@@ -46,14 +48,16 @@ app.use(express.urlencoded({ extended: false }));
 // json handling
 app.use(express.json());
 // cookie handlers
-app.use(
-    cookieSession({
-        name: "session",
-        keys: [secrets],
-        // Cookie Options 24hrs
-        maxAge: 24 * 60 * 60 * 1000,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    name: "session",
+    keys: [secrets],
+    // Cookie Options 24hrs
+    maxAge: 24 * 60 * 60 * 1000,
+});
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 // Csurf Protection Options
 // app.use(csurf());
 // app.use(function (req, res, next) {
@@ -71,43 +75,6 @@ app.get("/welcome", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
 });
-
-// app.post(
-//     "/registration",
-//     [
-//         check("first", "You must enter a first name").notEmpty(),
-//         check("last", "You must enter a last name").notEmpty(),
-//         check("email", "Make sure this is a valid email")
-//             .notEmpty()
-//             .normalizeEmail(),
-//         check("password", "Check password is more than 6 characters").isLength(
-//             "6"
-//         ),
-//     ],
-//     async (req, res) => {
-//         const { first, last, email, password } = req.body;
-
-//         const errors = validationResult(req);
-//         if (!errors.isEmpty()) {
-//             return res.status(201).json({ errors: errors });
-//         } else {
-//             const salt = await bcrypt.genSalt(10);
-//             const bryptedPassword = await bcrypt.hash(password, salt);
-//             try {
-//                 const userID = await db.newUser(
-//                     first,
-//                     last,
-//                     email,
-//                     bryptedPassword
-//                 );
-//                 req.session.userID = userID.rows[0].user_id;
-//                 res.redirect("/");
-//             } catch (error) {
-//                 console.log("error at the server-side reg", error);
-//             }
-//         }
-//     }
-// );
 
 // log in with gituser ID
 app.get("/home", async (req, res) => {
@@ -159,37 +126,6 @@ app.get("/home", async (req, res) => {
             });
     });
 });
-
-// app.post(
-//     "/login",
-//     [check("email", "type your email").notEmpty()],
-
-//     async (req, res) => {
-//         const { email, password } = req.body;
-//         const errors = validationResult(req);
-//         if (!errors.isEmpty()) {
-//             return res.status(201).json({ errors: errors });
-//         } else {
-//             try {
-//                 // Lets check against the database
-//                 const AttemptLog = await db.logAttempt(email);
-//                 const match = await compare(
-//                     password,
-//                     AttemptLog.rows[0].password
-//                 );
-//                 if (match) {
-//                     console.log("sucessfully logged in");
-//                     req.session.userID = AttemptLog.rows[0].user_id;
-//                     res.redirect("/");
-//                 }
-//             } catch (error) {
-//                 console.log("here is a error at the login, server");
-//             }
-//         }
-//     }
-// );
-
-// Password recovery in gitignore, may or may not allow users without git 🤔
 
 app.get("/userdata", async (req, res) => {
     const userCookie = req.session.userID;
@@ -403,6 +339,15 @@ server.listen(PORT, function () {
     console.log(`I'm listening on ${PORT}`);
 });
 
-io.on("welcome", (socket) => {
-    console.log("connected to socket", socket.id);
+io.on("connection", function (socket) {
+    const { userID } = socket.request.session.userID;
+    if (!userID) {
+        return socket.disconnect(true);
+    } else {
+        console.log(`socket with the id ${socket.id} is now connected`);
+
+        socket.on("chatMessages", () => {
+            console.log("chatMessages");
+        });
+    }
 });

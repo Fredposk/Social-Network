@@ -10,6 +10,19 @@ const hoverVariants = {
     },
 };
 
+const pageEnterDrop = {
+    hidden: { y: "-100vh", opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            delay: 1,
+            duration: 1.2,
+        },
+    },
+};
+
 const TwitterFeed = ({ feed, updateFeed, darkMode }) => {
     const saveChoice = async (item) => {
         try {
@@ -110,16 +123,15 @@ const TwitterFeed = ({ feed, updateFeed, darkMode }) => {
             logo:
                 "https://pbs.twimg.com/profile_images/712703916358537217/mcOketun_400x400.jpg",
         },
-        {
-            id: 17,
-            handle: "F1",
-            logo:
-                "https://pbs.twimg.com/profile_images/1344975732301246465/kb6rHiYJ_400x400.jpg",
-        },
+        // {
+        //     id: 17,
+        //     handle: "F1",
+        //     logo:
+        //         "https://pbs.twimg.com/profile_images/1344975732301246465/kb6rHiYJ_400x400.jpg",
+        // },
         // { id: 16, handle: "DeutscheWelle", logo: "DW" },
         // { id: 16, handle: "DeutscheWelle", logo: "DW" },
     ];
-    // const darkTwitter = {`${darkMode} `
 
     return (
         <div className="flex h-56 space-x-5">
@@ -139,10 +151,15 @@ const TwitterFeed = ({ feed, updateFeed, darkMode }) => {
                 </div>
             </div>
 
-            <div className="flex flex-col ">
+            <div className="flex flex-col">
                 {feeds.map((feed) => {
                     return (
-                        <div key={feed.id}>
+                        <motion.div
+                            key={feed.id}
+                            variants={pageEnterDrop}
+                            initial="hidden"
+                            animate="visible"
+                        >
                             {" "}
                             <motion.div
                                 variants={hoverVariants}
@@ -158,7 +175,7 @@ const TwitterFeed = ({ feed, updateFeed, darkMode }) => {
                                     alt=""
                                 />
                             </motion.div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>

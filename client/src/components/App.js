@@ -10,15 +10,7 @@ import { motion } from "framer-motion";
 import Findusers from "./Findusers";
 import Friends from "./Friends";
 import NavBar from "./NavBar";
-
-// const hoverVariants = {
-//     hidden: {},
-//     visible: {
-//         y: -4,
-//         color: "#000000",
-//         duration: 0.4,
-//     },
-// };
+import Chat from "./Chat";
 
 const App = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -69,79 +61,6 @@ const App = () => {
                     darkMode={darkMode}
                 />
                 <NavBar darkMode={darkMode} currentTab={currentTab} />
-                {/* <ProfilePic img={profileImg} size={`20rem`} /> */}
-                {/* <div
-                    className={`mt-4 mb-1 ${
-                        darkMode ? "border-black" : "border-gray-300"
-                    }  border-b  text-md`}
-                >
-                    <div className="flex ml-6 space-x-5">
-                        <Link to="/">
-                            <motion.div
-                                variants={hoverVariants}
-                                whileHover="visible"
-                                className={`border-b border-transparent   ${
-                                    currentTab === "/" ? "border-black" : ""
-                                } cursor-pointer ${
-                                    darkMode ? "text-black" : "text-gray-500"
-                                }`}
-                            >
-                                Overview
-                            </motion.div>
-                        </Link>
-                        <motion.div
-                            variants={hoverVariants}
-                            whileHover="visible"
-                            className={`border-b border-transparent ${
-                                currentTab === "/chat" ? "border-black" : ""
-                            } cursor-pointer ${
-                                darkMode ? "text-black" : "text-gray-500"
-                            }`}
-                        >
-                            Chat
-                        </motion.div>
-                        <motion.div
-                            variants={hoverVariants}
-                            whileHover="visible"
-                            className={`${
-                                darkMode ? "text-black" : "text-gray-500"
-                            } border-b border-transparent cursor-pointer `}
-                        >
-                            Online
-                        </motion.div>
-                        <Link to="/friends">
-                            <motion.div
-                                variants={hoverVariants}
-                                whileHover="visible"
-                                className={`border-b border-transparent ${
-                                    currentTab == "/friends"
-                                        ? "border-black"
-                                        : ""
-                                } ${
-                                    darkMode ? "text-black" : "text-gray-500"
-                                } cursor-pointer`}
-                            >
-                                Friends
-                            </motion.div>
-                        </Link>
-
-                        <Link to="/find/users">
-                            <motion.div
-                                variants={hoverVariants}
-                                whileHover="visible"
-                                className={`border-b border-transparent ${
-                                    currentTab == "/find/users"
-                                        ? "border-black"
-                                        : ""
-                                } ${
-                                    darkMode ? "text-black" : "text-gray-500"
-                                } cursor-pointer`}
-                            >
-                                Find People
-                            </motion.div>
-                        </Link>
-                    </div>
-                </div> */}
 
                 <Route
                     exact
@@ -163,12 +82,32 @@ const App = () => {
                 <Route
                     exact
                     path="/find/users"
-                    render={() => <Findusers updateLocation={updateLocation} />}
+                    render={() => (
+                        <Findusers
+                            updateLocation={updateLocation}
+                            darkMode={darkMode}
+                        />
+                    )}
                 />
                 <Route
                     exact
                     path="/friends"
-                    render={() => <Friends updateLocation={updateLocation} />}
+                    render={() => (
+                        <Friends
+                            updateLocation={updateLocation}
+                            darkMode={darkMode}
+                        />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/chat"
+                    render={() => (
+                        <Chat
+                            updateLocation={updateLocation}
+                            darkMode={darkMode}
+                        />
+                    )}
                 />
 
                 <Route

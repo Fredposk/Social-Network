@@ -12,9 +12,10 @@ const hoverVariants = {
 };
 
 const NavBar = ({ darkMode, currentTab }) => {
+    console.log(darkMode);
     return (
         <div
-            className={`mt-4 mb-1 ${
+            className={`mt-4  ${
                 darkMode ? "border-black" : "border-gray-300"
             }  border-b  text-md`}
         >
@@ -34,15 +35,17 @@ const NavBar = ({ darkMode, currentTab }) => {
                         Overview
                     </motion.div>
                 </Link>
-                <motion.div
-                    variants={hoverVariants}
-                    whileHover="visible"
-                    className={`border-b border-transparent ${
-                        currentTab === "/chat" ? "border-black" : ""
-                    } cursor-pointer`}
-                >
-                    Chat
-                </motion.div>
+                <Link to="/chat">
+                    <motion.div
+                        variants={hoverVariants}
+                        whileHover="visible"
+                        className={`border-b border-transparent ${
+                            currentTab === "/chat" ? "border-black" : ""
+                        } cursor-pointer`}
+                    >
+                        Chat
+                    </motion.div>
+                </Link>
                 <motion.div
                     variants={hoverVariants}
                     whileHover="visible"
