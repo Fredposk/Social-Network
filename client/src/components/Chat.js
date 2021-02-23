@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import { chatMessage, chatMessages } from "../actions";
+import { Socket } from "./Socket";
+import { useSelector, useDispatch } from "react-redux";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -24,7 +27,17 @@ const Chat = ({ updateLocation }) => {
 
     return (
         <motion.div variants={pageEnter} initial="hidden" animate="visible">
-            Hello world I am the Chat click me
+            <div>
+                <div>type here</div>
+                <textarea
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    placeholder="Type your message here"
+                ></textarea>
+                <button>Click here</button>
+            </div>
         </motion.div>
     );
 };

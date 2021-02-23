@@ -109,3 +109,45 @@ module.exports.updateFeed = (feed, id) => {
     const params = [feed, id];
     return db.query(q, params);
 };
+
+module.exports.prevMessages = () => {
+    const q = `SELECT
+  chat.sender_id,
+  chat.message,
+  chat.created_at,
+  gituser.name,
+  gituser.avatar_url,
+  chat.id
+FROM
+  chat
+  JOIN gituser ON sender_id = gituser.id
+ORDER BY
+  chat.id DESC
+LIMIT
+  10`;
+    return db.query(q);
+};
+
+module.exports.newMessage = (sender, message) => {
+    const q = `insert into chat (sender_id, message) Values ($1, $2) returning *;`;
+    const params = [sender, message];
+    return db.query(q, params);
+};
+
+module.exports.mostRecentMessage = () => {
+    const q = `SELECT
+  chat.sender_id,
+  chat.message,
+  chat.created_at,
+  gituser.name,
+  gituser.avatar_url,
+  chat.id
+FROM
+  chat
+  JOIN gituser ON sender_id = gituser.id
+ORDER BY
+  chat.id DESC
+LIMIT
+  1`;
+    return db.query(q);
+};

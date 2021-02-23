@@ -12,7 +12,7 @@ const hoverVariants = {
 };
 
 const NavBar = ({ darkMode, currentTab }) => {
-    console.log(darkMode);
+    // console.log(darkMode);
     return (
         <div
             className={`mt-4  ${

@@ -339,15 +339,18 @@ server.listen(PORT, function () {
     console.log(`I'm listening on ${PORT}`);
 });
 
-io.on("connection", function (socket) {
-    const { userID } = socket.request.session.userID;
+io.on("connection", function async(socket) {
+    const { userID } = socket.request.session;
     if (!userID) {
         return socket.disconnect(true);
-    } else {
-        console.log(`socket with the id ${socket.id} is now connected`);
-
-        socket.on("chatMessages", () => {
-            console.log("chatMessages");
-        });
     }
+    console.log(
+        `socket with the id ${socket.id} and ${userID} is now connected`
+    );
+
+    socket.on("disconnect", () => {
+        console.log(
+            `Socket with id: ${socket.id} and ${userID} just DISCONNECTED!!!!`
+        );
+    });
 });

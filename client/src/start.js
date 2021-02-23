@@ -6,6 +6,9 @@ import App from "./components/App";
 import Welcome from "./components/Welcome";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 import { init } from "./components/Socket";
 
 const store = createStore(
@@ -17,9 +20,12 @@ let elem;
 if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
+    init(store);
     elem = (
         <Provider store={store}>
-            <App />
+            <QueryClientProvider client={queryClient}>
+                <App />
+            </QueryClientProvider>
         </Provider>
     );
 }

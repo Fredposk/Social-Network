@@ -24,3 +24,22 @@ export async function acceptFriend(id) {
         newFriend: response.data.id,
     };
 }
+
+export const chatMessages = (prevMsgs) => {
+    return {
+        type: "PREV_MESSAGES",
+        payload: prevMsgs,
+    };
+};
+export const chatMessage = (msg) => {
+    return {
+        type: "SEND_MESSAGE",
+        payload: msg,
+    };
+};
+export const showNewMessage = (newMsg) => {
+    return {
+        type: "NEW_MESSAGE",
+        payload: newMsg,
+    };
+};
