@@ -58,7 +58,7 @@ let Profile = ({
                         <textarea
                             rows="3"
                             style={{ resize: "none" }}
-                            className="py-1 pl-2 text-sm text-gray-700 bg-gray-200 rounded-lg shadow-md focus:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 ∫focus:border-transparent"
+                            className="py-1 pl-2 text-sm text-gray-700 bg-gray-200 rounded-lg shadow-md focus:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent"
                             onChange={(e) => setwriteBio(e.target.value)}
                             type="text"
                             placeholder="Tell us more about yourself"

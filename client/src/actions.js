@@ -31,12 +31,7 @@ export const chatMessages = (prevMsgs) => {
         payload: prevMsgs,
     };
 };
-export const chatMessage = (msg) => {
-    return {
-        type: "SEND_MESSAGE",
-        payload: msg,
-    };
-};
+
 export const showNewMessage = (newMsg) => {
     return {
         type: "NEW_MESSAGE",

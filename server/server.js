@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const moment = require("moment");
 // const bcrypt = require("bcryptjs");
 const axios = require("axios");
 const { uploader } = require("./upload");
@@ -339,7 +340,7 @@ server.listen(PORT, function () {
     console.log(`I'm listening on ${PORT}`);
 });
 
-io.on("connection", function async(socket) {
+io.on("connection", async function (socket) {
     const { userID } = socket.request.session;
     if (!userID) {
         return socket.disconnect(true);
@@ -347,6 +348,48 @@ io.on("connection", function async(socket) {
     console.log(
         `socket with the id ${socket.id} and ${userID} is now connected`
     );
+    // Previous messages when socket connects
+    const prevMessages = await db.prevMessages();
+    const messages = prevMessages.rows.map((item) => {
+        const date = moment(item.created_at);
+        const date2 = moment(date).fromNow();
+        return [
+            item.name,
+            item.avatar_url,
+            item.sender_id,
+            item.message,
+            date2,
+            item.id,
+        ];
+    });
+    socket.emit("chatMessages", messages.reverse());
+    socket.on("newMessage", async (message) => {
+        const { text } = message;
+        try {
+            await db.newMessage(userID, text);
+            const mostRecentMessage = await db.mostRecentMessage();
+            const {
+                name,
+                avatar_url,
+                sender_id,
+                message,
+                id,
+            } = mostRecentMessage.rows[0];
+            const date1 = moment(mostRecentMessage.rows[0].created_at);
+            const date2 = moment(date1).fromNow();
+            const newMessage = [
+                name,
+                avatar_url,
+                sender_id,
+                message,
+                date2,
+                id,
+            ];
+            io.emit("chatMessage", newMessage);
+        } catch (error) {
+            console.log("error getting message into db", error);
+        }
+    });
 
     socket.on("disconnect", () => {
         console.log(

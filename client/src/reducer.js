@@ -35,13 +35,6 @@ export default function reducer(state = {}, action) {
         };
     }
 
-    if (action.type === "SEND_MESSAGE") {
-        state = {
-            ...state,
-            text: action.payload,
-        };
-    }
-
     if (action.type === "NEW_MESSAGE") {
         state = {
             ...state,

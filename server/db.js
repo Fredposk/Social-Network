@@ -122,14 +122,14 @@ FROM
   chat
   JOIN gituser ON sender_id = gituser.id
 ORDER BY
-  chat.id DESC
+  chat.created_at DESC
 LIMIT
   10`;
     return db.query(q);
 };
 
 module.exports.newMessage = (sender, message) => {
-    const q = `insert into chat (sender_id, message) Values ($1, $2) returning *;`;
+    const q = `insert into chat (sender_id, message) Values ($1, $2);`;
     const params = [sender, message];
     return db.query(q, params);
 };
@@ -146,7 +146,7 @@ FROM
   chat
   JOIN gituser ON sender_id = gituser.id
 ORDER BY
-  chat.id DESC
+  chat.created_at DESC
 LIMIT
   1`;
     return db.query(q);
