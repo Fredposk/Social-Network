@@ -124,7 +124,7 @@ FROM
 ORDER BY
   chat.created_at DESC
 LIMIT
-  10`;
+  9`;
     return db.query(q);
 };
 
