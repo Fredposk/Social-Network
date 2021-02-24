@@ -161,3 +161,28 @@ LIMIT
   1`;
     return db.query(q);
 };
+
+module.exports.getMyNotes = (id) => {
+    const q = `select * from notes where user_id = $1`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.updatePosition = (x, y, id) => {
+    const q = `UPDATE notes SET layerx = $1,  layery = $2 where note_id = $3
+`;
+    const params = [x, y, id];
+    return db.query(q, params);
+};
+
+module.exports.addNewNote = (note_text, layery, layerx, user_id) => {
+    const q = `insert into notes (note_text, layery, layerx, user_id) values ($1, $2, $3, $4) returning note_id`;
+    const params = [note_text, layery, layerx, user_id];
+    return db.query(q, params);
+};
+
+module.exports.removeNote = (id) => {
+    const q = `delete from notes where note_id = $1`;
+    const params = [id];
+    return db.query(q, params);
+};

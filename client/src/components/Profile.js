@@ -4,6 +4,8 @@ import Uploader from "./Uploader";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import TwitterFeed from "./TwitterFeed";
+import Quotes from "./Quotes";
+import Notes from "./Notes";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -95,6 +97,8 @@ let Profile = ({
                     darkMode={darkMode}
                 />
             </div>
+            <Notes darkMode={darkMode} />
+            <Quotes darkMode={darkMode} />
         </motion.div>
     );
 };

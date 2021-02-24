@@ -324,6 +324,48 @@ app.post("/api/feed/:feed", async (req, res) => {
     }
 });
 
+app.get("/api/myNotes", async (req, res) => {
+    try {
+        const notes = await db.getMyNotes(req.session.userID);
+        res.status(200).json({ notes: notes.rows });
+    } catch (error) {
+        console.log("error getting notes");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/api/myNotes/posix", async (req, res) => {
+    try {
+        await db.updatePosition(req.body.x, req.body.y, req.body.id);
+        res.status(200);
+    } catch (error) {
+        console.log("error moving the notes");
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/api/myNotes/addNew", async (req, res) => {
+    try {
+        const { x, y, words } = req.body;
+        const response = await db.addNewNote(words, y, x, req.session.userID);
+        res.status(200).json({ id: response.rows });
+    } catch (error) {
+        console.log("error adding new note", error);
+        res.status(201).json({ error: error });
+    }
+});
+
+app.post("/api/myNotes/delete", async (req, res) => {
+    try {
+        await db.removeNote(req.body.id);
+        const notes = await db.getMyNotes(req.session.userID);
+        res.status(200).json({ notes: notes.rows });
+    } catch (error) {
+        console.log("error deleting note", error);
+        res.status(201).json({ error: error });
+    }
+});
+
 app.get("/logout", async (req, res) => {
     req.session.userID = null;
     res.redirect("/");
