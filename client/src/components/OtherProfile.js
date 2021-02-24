@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "./axios";
 import { motion } from "framer-motion";
 import FriendButton from "./FriendButton";
+import { Link } from "react-router-dom";
 
 const pageEnter = {
     hidden: { x: "100vw", opacity: 0 },
@@ -17,6 +18,7 @@ const OtherProfile = (props) => {
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
     const [otherId, setId] = useState("");
+    const [Friends, setFriends] = useState("");
 
     useEffect(async () => {
         props.updateLocation("/find/users");
@@ -24,19 +26,25 @@ const OtherProfile = (props) => {
         const user = props.match.params.id;
         setId(user);
         const result = await axios.get(`/api/user/${user}`);
+
         const { avatar_url, name, bio, id } = result.data.user;
         setProfileImg(avatar_url);
         setName(name);
         setBio(bio);
+        setFriends(result.data.friendsList);
 
         if (id === result.data.requester) {
             props.history.push("/");
         }
     }, []);
-
     return (
-        <motion.div variants={pageEnter} initial="hidden" animate="visible">
-            <div className="inline-flex w-2/3 p-12 mt-6 ml-6 ">
+        <motion.div
+            variants={pageEnter}
+            initial="hidden"
+            animate="visible"
+            className="flex items-center"
+        >
+            <div className="inline-flex w-1/2 mt-6 ml-6 ">
                 <div className="flex items-center w-2/3">
                     <div>
                         <img
@@ -58,9 +66,34 @@ const OtherProfile = (props) => {
                     </div>
                 </div>
             </div>
-            {/* Here I might do a button to go back to search list sending the the previouos search back as a prop??? */}
-            {/* <button>Back</button> */}
-            {/* here */}
+            <div className="flex flex-col w-1/2 mt-6 border-l border-gray-400">
+                {Friends &&
+                    Friends.map((user, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className="inline-flex w-2/3 px-12 mt-6 mb-2 ml-6 space-y-3 transition duration-500 ease-in-out hover:opacity-75"
+                            >
+                                <Link to={`/user/${user.id}`}>
+                                    <div className="flex items-center ">
+                                        <div>
+                                            <img
+                                                className="object-cover w-24 h-24 rounded-lg shadow-md "
+                                                src={`${user.avatar_url}`}
+                                                alt="profile picture of {`${img}`}"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col ml-6 space-y-2 break-words">
+                                            <div className="text-blue-600 uppercase text-md">
+                                                {user.name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        );
+                    })}{" "}
+            </div>
         </motion.div>
     );
 };

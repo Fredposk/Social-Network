@@ -33,6 +33,16 @@ module.exports.getOtherUser = (id) => {
     return db.query(q, params);
 };
 
+module.exports.getFriendsList = (id) => {
+    const q = `SELECT gituser.id, name, avatar_url
+    FROM friendships
+    JOIN gituser
+    ON (accepted = true AND sender_id = $1 AND recipient_id = gituser.id)
+    OR (accepted = true AND sender_id = gituser.id AND recipient_id = $1)`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 module.exports.getNewUsers = (id) => {
     const q = `SELECT * FROM gituser where id != $1 ORDER BY created_at DESC LIMIT 3;`;
     const params = [id];

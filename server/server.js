@@ -165,9 +165,11 @@ app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const user = await db.getOtherUser(id);
+        const friendsList = await db.getFriendsList(id);
         res.status(200).json({
             user: user.rows[0],
             requester: req.session.userID,
+            friendsList: friendsList.rows,
         });
     } catch (error) {
         console.log("error in the fetch Other/user api ");
