@@ -42,7 +42,7 @@ const OtherProfile = (props) => {
             variants={pageEnter}
             initial="hidden"
             animate="visible"
-            className="flex items-center"
+            className="flex items-start"
         >
             <div className="inline-flex w-1/2 mt-6 ml-6 ">
                 <div className="flex items-center w-2/3">

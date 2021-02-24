@@ -41,7 +41,12 @@ const Chat = ({ updateLocation, darkMode }) => {
         }, 500);
     };
 
-    const elemRef = useRef();
+    const newRef = useRef();
+
+    useEffect(() => {
+        newRef.current.scrollTop =
+            newRef.current.scrollHeight - newRef.current.clientHeight;
+    });
 
     return (
         <motion.div
@@ -51,7 +56,7 @@ const Chat = ({ updateLocation, darkMode }) => {
             className="max-h-screen overflow-auto"
         >
             <div className="inline-flex flex-col m-2 border border-blue-600 rounded-lg">
-                <div ref={elemRef} className="inline-flex flex-col">
+                <div ref={newRef} className="inline-flex flex-col">
                     {messages &&
                         messages.map((message, index) => {
                             return (

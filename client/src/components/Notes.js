@@ -110,7 +110,7 @@ const Notes = ({ darkMode }) => {
                             bounds="body"
                             onStop={(e) => dragPosition(e, note.id)}
                         >
-                            <div className="relative inline-block w-2/12 p-3 text-sm font-semibold text-gray-600 break-all bg-yellow-400 rounded shadow-lg cursor-move">
+                            <div className="relative inline-block w-2/12 p-3 text-sm font-semibold text-gray-600 break-words bg-yellow-400 rounded shadow-lg cursor-move">
                                 {note.words}
                                 <svg
                                     onClick={() => {

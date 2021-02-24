@@ -6,7 +6,7 @@ const hoverVariants = {
     hidden: {},
     visible: {
         y: -4,
-        color: "#000000",
+        color: "#152238",
         duration: 0.4,
     },
 };
@@ -15,15 +15,11 @@ const NavBar = ({ darkMode, currentTab }) => {
     // console.log(darkMode);
     return (
         <div
-            className={`mt-4  ${
+            className={`mt-4 mb-2 ${
                 darkMode ? "border-black" : "border-gray-300"
             }  border-b  text-md`}
         >
-            <div
-                className={`flex ml-6 space-x-5 ${
-                    darkMode ? "text-gray-800" : "text-gray-500"
-                }`}
-            >
+            <div className="flex ml-6 space-x-5 text-gray-700">
                 <Link to="/">
                     <motion.div
                         variants={hoverVariants}
@@ -46,13 +42,13 @@ const NavBar = ({ darkMode, currentTab }) => {
                         Chat
                     </motion.div>
                 </Link>
-                <motion.div
+                {/* <motion.div
                     variants={hoverVariants}
                     whileHover="visible"
                     className={` border-b border-transparent cursor-pointer `}
                 >
                     Online
-                </motion.div>
+                </motion.div> */}
                 <Link to="/friends">
                     <motion.div
                         variants={hoverVariants}

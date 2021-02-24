@@ -98,7 +98,7 @@ let Profile = ({
                 />
             </div>
             <Notes darkMode={darkMode} />
-            <Quotes darkMode={darkMode} />
+            {/* <Quotes darkMode={darkMode} /> */}
         </motion.div>
     );
 };
