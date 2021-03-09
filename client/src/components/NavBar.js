@@ -42,13 +42,13 @@ const NavBar = ({ darkMode, currentTab }) => {
                         Chat
                     </motion.div>
                 </Link>
-                {/* <motion.div
+                <motion.div
                     variants={hoverVariants}
                     whileHover="visible"
                     className={` border-b border-transparent cursor-pointer `}
                 >
                     Online
-                </motion.div> */}
+                </motion.div>
                 <Link to="/friends">
                     <motion.div
                         variants={hoverVariants}

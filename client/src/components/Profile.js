@@ -91,6 +91,7 @@ let Profile = ({
                         </div>
                     </div>
                 </div>
+                {/* <Quotes darkMode={darkMode} /> */}
                 <TwitterFeed
                     feed={feed}
                     updateFeed={updateFeed}
@@ -98,7 +99,6 @@ let Profile = ({
                 />
             </div>
             <Notes darkMode={darkMode} />
-            {/* <Quotes darkMode={darkMode} /> */}
         </motion.div>
     );
 };
